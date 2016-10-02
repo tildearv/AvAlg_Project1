@@ -4,24 +4,26 @@
 #include <time.h>
 #include <vector>
 #include "City.cpp"
+#include <string>
+#include <cstdlib>
 
 using namespace std;
 
-vector<City> buildNodes(){
-    ifstream reader("./samples/tsp.in");
+vector<City> buildNodes(istream& reader){
+    //ifstream reader("./samples/tsp.in");
         string line;
         getline(reader, line);
-        int numCities = stoi(line);
+        int numCities = std::stoi(line.c_str());
         vector<City> cities;
         for(int i = 0; i < numCities; i++){
             getline(reader, line);
             int index = line.find(" ", 0);
-            float x = stod(line.substr(0,index));
-            float y = stod(line.substr(index,line.length()));
+            float x = std::stod(line.substr(0,index).c_str());
+            float y = std::stod(line.substr(index,line.length()).c_str());
             City city(i,x,y);
             cities.push_back(city);
         }
-        reader.close();
+        //reader.close();
     return cities;
 }
 
@@ -34,12 +36,12 @@ void nearestNeighbor(vector<City> cities){
     tour.push_back(current.getVertexNum());
     cities.erase(cities.begin() + rnd);
 
-    float best = 99999;
+    double best = 99999;
     int best_ind = -1;
 
     while(cities.size() > 0){
-        for(int i=0; i!=cities.size(); i++){
-            float dist = current.dist(cities[i]);
+        for(int i=0; i<cities.size(); ++i){
+            double dist = current.dist(cities[i]);
             if (dist < best){
                 best = dist;
                 best_ind = i;
@@ -61,8 +63,14 @@ void nearestNeighbor(vector<City> cities){
 
 
 
-int main() {
-    vector<City> cities = buildNodes();
+int main(int argc, char* argv[]) {
+    istream* input = &cin; // input is stdin by default
+    if(argc > 1) {
+        input = new ifstream(argv[1]);
+    }
+
+    vector<City> cities = buildNodes(*input);
     nearestNeighbor(cities);
+
     return 0;
 }
