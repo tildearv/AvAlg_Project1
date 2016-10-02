@@ -40,7 +40,7 @@ void nearestNeighbor(vector<City> cities){
     int best_ind = -1;
 
     while(cities.size() > 0){
-        for(int i=0; i<cities.size(); ++i){
+        for(int i=0; i!=cities.size(); ++i){
             double dist = current.dist(cities[i]);
             if (dist < best){
                 best = dist;
@@ -54,7 +54,7 @@ void nearestNeighbor(vector<City> cities){
     }
 
 
-    for(int i=0; i!=tour.size(); i++){
+    for(int i=0; i!=tour.size(); ++i){
         cout << tour[i] << endl;
     }
 }
