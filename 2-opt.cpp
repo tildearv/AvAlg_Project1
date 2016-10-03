@@ -8,9 +8,26 @@
 
 using namespace std;
 
+    /*
+       1. take route[1] to route[i-1] and add them in order to new_route
+       2. take route[i] to route[k] and add them in reverse order to new_route
+       3. take route[k+1] to end and add them in order to new_route
+    */
 
 vector<int> swap(vector<int>& tour, int& i, int& k ) 
 {
+    vector<int> newTour;
+
+    for(int j = 0; j < i; ++j){
+        newTour.push_back(tour[j]);
+    }
+    for(int l = k; l > i-1; --l){
+        newTour.push_back(tour[l]);
+    }
+    for(int m = k+1; k < tour.size(); ++k){
+        newTour.push_back(tour[m]);
+    }
+
     return tour;
 }
 
@@ -22,11 +39,11 @@ void twoOpt(vector<int> tour) {
  
     while ( improve < 20 )
     {
-        for ( int i = 0; i < size - 1; i++ ) 
+        for (int i = 0; i < size - 1; ++i) 
         {
-            for ( int k = i + 1; k < size; k++) 
+            for (int k = i + 1; k < size; ++k) 
             {
-                swap(tour, i, k);
+                vector<int> newTour = swap(tour, i, k);
  
                 /*if ( new_distance < best_distance ) 
                 {
@@ -42,16 +59,3 @@ void twoOpt(vector<int> tour) {
         improve ++;
     }
 }
-
-// From wikipedia psuedocode:
-// http://en.wikipedia.org/wiki/2-opt
-
-// 1. take route[0] to route[i-1] and add them in order to new_route
-// 2. take route[i] to route[k] and add them in reverse order to new_route
-// 3. take route[k+1] to end and add them in order to new_route
-
-void swap(vector<int> tour, int i, int k ) 
-{
-    //return tour;
-}
-
