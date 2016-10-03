@@ -5,12 +5,13 @@
 #include <vector>
 #include <limits>
 #include "City.cpp"
+#include "2-opt.cpp"
 
+//To run: ./NN.o < "./samples/tsp.in"
 
 using namespace std;
 
 vector<City> buildNodes(istream& reader){
-    //ifstream reader("./samples/tsp.in");
         string line;
         getline(reader, line);
         int numCities = std::stoi(line.c_str());
@@ -23,7 +24,6 @@ vector<City> buildNodes(istream& reader){
             City city(i,x,y);
             cities.push_back(city);
         }
-        //reader.close();
     return cities;
 }
 
@@ -31,7 +31,7 @@ void nearestNeighbor(vector<City> cities){
     vector<int> tour;
 
     srand (time(NULL));
-    int rnd = 0;//rand() % cities.size();
+    int rnd = rand() % cities.size();
     City current = cities[rnd];
     tour.push_back(current.getVertexNum());
     cities.erase(cities.begin() + rnd);
@@ -53,7 +53,8 @@ void nearestNeighbor(vector<City> cities){
         best = numeric_limits<float>::max();
     }
 
-
+    twoOpt(tour);
+    
     for(int i=0; i<tour.size()-1; ++i){
         cout << tour[i] << endl;
     }
