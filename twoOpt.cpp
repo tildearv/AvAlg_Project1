@@ -15,23 +15,6 @@ using namespace std;
        3. take route[k+1] to end and add them in order to new_route
     */
 
-vector<int> swap(vector<int>& tour, int& i, int& k ) 
-{
-    vector<int> newTour;
-
-    for(int j = 0; j < i-1; ++j){
-        newTour.push_back(tour[j]);
-    }
-    for(int l = k; l > i; --l){
-        newTour.push_back(tour[l]);
-    }
-    for(int m = k; k < tour.size(); ++k){
-        newTour.push_back(tour[m]);
-    }
-
-    return tour;
-}
-
 vector<int> twoOpt(vector<int> tour, vector<City> cities) {
 
     int count = 0;
@@ -82,6 +65,23 @@ vector<int> twoOpt(vector<int> tour, vector<City> cities) {
         }
  
         ++count;
+    }
+
+    return tour;
+}
+
+vector<int> swap(vector<int>& tour, int& i, int& k ) 
+{
+    vector<int> newTour;
+
+    for(int j = 0; j < i-1; ++j){
+        newTour.push_back(tour[j]);
+    }
+    for(int l = k; l > i; --l){
+        newTour.push_back(tour[l]);
+    }
+    for(int m = k; k < tour.size(); ++k){
+        newTour.push_back(tour[m]);
     }
 
     return tour;
