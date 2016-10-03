@@ -3,6 +3,7 @@ using namespace std;
 
 class City{
     private:
+        // store coordinates
         float x;
         float y;
         int vertex;
