@@ -1,4 +1,4 @@
-#include <limits> // max integer
+#include <limits> // max float
 #include <time.h> // used for random
 #include <vector>
 

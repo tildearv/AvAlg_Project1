@@ -1,5 +1,5 @@
 #include <string>
-#include <math.h>
+#include <math.h> // pow, sqrt etc
 
 using namespace std;
 
