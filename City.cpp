@@ -6,9 +6,10 @@ using namespace std;
 
 class City{
     private:
+        // store coordinates
         float x;
         float y;
-        int vertex;
+        int vertex; // vertex number
     public:
         City(int vertex, float x, float y){
             this -> vertex = vertex;
@@ -18,6 +19,8 @@ class City{
         float getX(){ return x;}
         float getY(){ return y;}
         float getVertexNum(){ return vertex;}
+
+        // calc distance between this city and neighbor city
         float dist(City neighbor){
             float xdist = neighbor.getX() - x;
             float ydist = neighbor.getY() - y;
