@@ -5,7 +5,7 @@
 #include <vector>
 #include <limits>
 #include "City.cpp"
-#include "2-opt.cpp"
+#include "twoOpt.cpp"
 
 //To run: ./NN.o < "./samples/tsp.in"
 
@@ -30,6 +30,8 @@ vector<City> buildNodes(istream& reader){
 void nearestNeighbor(vector<City> cities){
     vector<int> tour;
 
+    vector<City> oldCities = cities;
+
     srand (time(NULL));
     int rnd = rand() % cities.size();
     City current = cities[rnd];
@@ -53,12 +55,13 @@ void nearestNeighbor(vector<City> cities){
         best = numeric_limits<float>::max();
     }
 
-    twoOpt(tour);
-    
-    for(int i=0; i<tour.size()-1; ++i){
-        cout << tour[i] << endl;
+    vector<int> newTour = twoOpt(tour, oldCities);
+
+    for(int i=0; i<newTour.size()-1; ++i){
+        cout << newTour[i] << endl;
     }
-    cout << tour[tour.size()-1];
+    cout << newTour[newTour.size()-1];
+    
 }
 
 
