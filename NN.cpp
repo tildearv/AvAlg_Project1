@@ -4,10 +4,11 @@
 #include <time.h>
 #include <vector>
 #include <limits>
-#include "City.cpp"
-#include "twoOpt.cpp"
+#include "twoOpt.h"
+
 
 //To run: ./NN.o < "./samples/tsp.in"
+//g++ -std=c++11 -o NN.o NN.cpp twoOpt.cpp City.cpp
 
 using namespace std;
 
@@ -33,7 +34,7 @@ void nearestNeighbor(vector<City> cities){
     vector<City> oldCities = cities;
 
     srand (time(NULL));
-    int rnd = rand() % cities.size();
+    int rnd = 0;//rand() % cities.size();
     City current = cities[rnd];
     tour.push_back(current.getVertexNum());
     cities.erase(cities.begin() + rnd);
