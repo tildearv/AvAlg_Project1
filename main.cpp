@@ -1,9 +1,6 @@
-#include <fstream>
-#include <iostream>
-#include <stdlib.h>
-#include <time.h>
+#include <fstream> // istream I/O
+#include <iostream> // cout
 #include <vector>
-#include <limits>
 
 /* Help classes */
 #include "City.h"
