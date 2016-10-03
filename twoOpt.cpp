@@ -4,7 +4,7 @@
 #include <time.h>
 #include <vector>
 #include <algorithm>
-#include "types.h"
+#include <limits>
 
 using namespace std;
 
@@ -18,44 +18,63 @@ vector<int> swap(vector<int>& tour, int& i, int& k )
 {
     vector<int> newTour;
 
-    for(int j = 0; j < i; ++j){
+    for(int j = 0; j < i-1; ++j){
         newTour.push_back(tour[j]);
     }
-    for(int l = k; l > i-1; --l){
+    for(int l = k; l > i; --l){
         newTour.push_back(tour[l]);
     }
-    for(int m = k+1; k < tour.size(); ++k){
+    for(int m = k; k < tour.size(); ++k){
         newTour.push_back(tour[m]);
     }
 
     return tour;
 }
 
-void twoOpt(vector<int> tour) {
+vector<int> twoOpt(vector<int> tour, vector<City> cities) {
 
     int improve = 0;
-
     int size = tour.size();
+
+    //Need to make distance-funtion!
+
+    float bestDistance = 0.0;
+
+    for (int j = 0; j < tour.size()-1; ++j){
+
+        bestDistance += cities[tour[j]].dist(cities[tour[j+1]]);
+
+    }
  
-    while ( improve < 20 )
+    while (improve < 2)
     {
         for (int i = 0; i < size - 1; ++i) 
         {
             for (int k = i + 1; k < size; ++k) 
             {
                 vector<int> newTour = swap(tour, i, k);
+
+                float dist = 0.0;
+
+                for (int j = 0; j < newTour.size()-1; ++j){
+
+                    dist += cities[newTour[j]].dist(cities[newTour[j+1]]);
+
+                }
  
-                /*if ( new_distance < best_distance ) 
+                if (dist < bestDistance) 
                 {
                     // Improvement found so reset
                     improve = 0;
-                    tour = new_tour;
-                    best_distance = new_distance;
-                    Notify( tour.TourDistance() );
-                }*/
+                    tour = newTour;
+                    bestDistance = dist;
+                    //Notify(tour.TourDistance() );
+                }
             }
         }
  
         improve ++;
     }
+
+    return tour;
 }
