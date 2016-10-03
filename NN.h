@@ -1,9 +1,6 @@
-#include <fstream>
-#include <iostream>
-#include <stdlib.h>
-#include <time.h>
+#include <limits> // max integer
+#include <time.h> // used for random
 #include <vector>
-#include <limits>
 
 
 using namespace std;

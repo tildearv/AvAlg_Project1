@@ -7,6 +7,7 @@
 #include "City.h"
 
 
+/* Algorithms */
 #include "NN.h"
 
 //To run: ./NN.o < "./samples/tsp.in"
