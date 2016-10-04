@@ -22,34 +22,64 @@ vector<int> twoOpt(vector<int> tour, vector<City> cities) {
     double bestDistance = distance(tour, cities);
 
     //cout << bestDistance << endl;
-    if(size < 100){
-    while (count < 2){
-        int i = 1;
-        while(i < size - 1){
-            //cout << "i = " << i << endl;
+    if(size < 300){
 
-            for (int k = i + 1; k < size; ++k){
-                //cout << "k = " << k << endl;
-                vector<int> newTour = swap(tour, i, k);
+        while (count < 3){
+            int i = 1;
+            while(i < size - 1){
+                //cout << "i = " << i << endl;
 
-                double dist = distance(newTour, cities);
+                for (int k = i + 1; k < size; ++k){
+                    //cout << "k = " << k << endl;
+                    vector<int> newTour = swap(tour, i, k);
 
-                //cout << "newDist = " << dist << endl;
-                if (dist < bestDistance) {
-                    // Improvement found so reset
-                    //cout << bestDistance << endl;
-                    //cout << dist << endl;
-                    count = 0;
-                    tour = newTour;
-                    bestDistance = dist;
+                    double dist = distance(newTour, cities);
+
+                    //cout << "newDist = " << dist << endl;
+                    if (dist < bestDistance) {
+                        // Improvement found so reset
+                        //cout << bestDistance << endl;
+                        //cout << dist << endl;
+                        count = 0;
+                        tour = newTour;
+                        bestDistance = dist;
+                    }
                 }
+                ++i;
             }
-            ++i;
+     
+            ++count;
         }
+
+    }/*else{
+        int mult = size%10;
+        while (count < 3){
+            int i = 1;
+            while(i < size - 1){
+                //cout << "i = " << i << endl;
+
+                for (int k = i + 1; k < size; ++k){
+                    //cout << "k = " << k << endl;
+                    vector<int> newTour = swap(tour, i, k);
+
+                    double dist = distance(newTour, cities);
+
+                    //cout << "newDist = " << dist << endl;
+                    if (dist < bestDistance) {
+                        // Improvement found so reset
+                        //cout << bestDistance << endl;
+                        //cout << dist << endl;
+                        count = 0;
+                        tour = newTour;
+                        bestDistance = dist;
+                    }
+                }
+                i+=mult;
+            }
  
         ++count;
-    }
-    }
+        }
+    }*/
     //cout << bestDistance << endl;
     return tour;
 }
