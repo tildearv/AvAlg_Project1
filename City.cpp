@@ -1,9 +1,8 @@
+#include <math.h> // pow, sqrt etc
 #include <string>
 
-#include <math.h>
+/* Header files */
 #include "City.h"
-#include <math.h> // pow, sqrt etc
-
 
 using namespace std;
 
@@ -14,9 +13,7 @@ City::City(int vertex_in, float x_in, float y_in){
 }
 
 float City::getX(){ return x;}
-
 float City::getY(){ return y;}
-
 float City::getVertexNum(){ return vertex;}
 
 // calc distance between this city and neighbor city

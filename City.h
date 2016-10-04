@@ -1,12 +1,9 @@
-using namespace std;
-
-
 class City{
     private:
         // store coordinates
         float x;
         float y;
-        int vertex;
+        int vertex; // vertex num
     public:
         City(int vertex, float x, float y);
         float getX();
