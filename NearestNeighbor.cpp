@@ -1,6 +1,11 @@
 #include <limits> // max float
+#include <stdlib.h> // srand
 #include <time.h> // used for random
 #include <vector>
+
+
+#include "NearestNeighbor.h"
+
 using namespace std;
 
 /* Tour  construction heuristic.  Input  is an  array  of all  cities */

@@ -2,8 +2,6 @@
 #include <iostream> // cout
 #include <vector>
 
-/* Help classes */
-#include "City.cpp"
 
 /* Algorithms */
 #include "NearestNeighbor.cpp"
