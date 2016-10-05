@@ -1,10 +1,14 @@
 #include <fstream> // istream I/O
 #include <iostream> // cout
 #include <vector>
+
+
+/* Algorithms */
 #include "NearestNeighbor.h"
 
 
 /* To run: ./a.out < "./samples/tsp.in" */
+/* To compile: g++ NearestNeighbor.cpp City.cpp */
 
 using namespace std;
 
@@ -43,9 +47,11 @@ int main(int argc, char* argv[]) {
 
     // use nearestNeighbor algorithm
     // comment out if you want another algorithm to run
+
+    /* vector<int>t tour = 2opt(cities); */
     vector<int> tour = nearestNeighbor(cities);
 
-    // outputs the tour
+    // outputs the tour to Kattis
     for(int i=0; i<tour.size(); ++i){
         cout << tour[i] << endl;
     }
