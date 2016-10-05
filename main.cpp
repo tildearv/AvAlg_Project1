@@ -1,10 +1,7 @@
 #include <fstream> // istream I/O
 #include <iostream> // cout
 #include <vector>
-
-
-/* Algorithms */
-#include "NearestNeighbor.cpp"
+#include "NearestNeighbor.h"
 
 
 /* To run: ./a.out < "./samples/tsp.in" */
