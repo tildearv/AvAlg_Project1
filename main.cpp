@@ -4,7 +4,8 @@
 
 
 /* Algorithms */
-#include "NearestNeighbor.h"
+//#include "NearestNeighbor.h"
+#include "twoOpt.h"
 
 
 /* To run: ./a.out < "./samples/tsp.in" */
@@ -48,8 +49,8 @@ int main(int argc, char* argv[]) {
     // use nearestNeighbor algorithm
     // comment out if you want another algorithm to run
 
-    /* vector<int>t tour = twoOpt(cities); */
-    vector<int> tour = nearestNeighbor(cities);
+    vector<int> tour = twoOpt(cities); 
+    //vector<int> tour = nearestNeighbor(cities);
 
 
 

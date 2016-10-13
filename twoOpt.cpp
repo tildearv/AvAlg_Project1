@@ -9,8 +9,9 @@
 
 using namespace std;
 
-vector<int> twoOpt(vector<int> tour, vector<City> cities) {
+vector<int> twoOpt(vector<City> cities) {
 
+    vector<int> tour = nearestNeighbor(cities);
     int count = 0;
     int size = tour.size();
     //cout << "size = " << size << endl;
