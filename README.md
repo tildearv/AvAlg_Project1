@@ -1,5 +1,8 @@
 # AvAlg_Project1
 
+//To run: ./main.o < "./samples/tsp.in"
+//g++ -std=c++11 -o main.o main.cpp NearestNeighbourg.cpp twoOpt.cpp City.cpp
+
 #Tour construction heuristic
 ##Nearest Neighbor
     Implemented naive O(n^2)
