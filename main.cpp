@@ -48,8 +48,10 @@ int main(int argc, char* argv[]) {
     // use nearestNeighbor algorithm
     // comment out if you want another algorithm to run
 
-    /* vector<int>t tour = 2opt(cities); */
+    /* vector<int>t tour = twoOpt(cities); */
     vector<int> tour = nearestNeighbor(cities);
+
+
 
     // outputs the tour to Kattis
     for(int i=0; i<tour.size(); ++i){
