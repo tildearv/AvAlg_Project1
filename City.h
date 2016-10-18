@@ -8,12 +8,12 @@ class City{
         float x;
         float y;
         int vertex; // vertex num
-        vector<int> nearest;
     public:
         City(int vertex, float x, float y);
         float getX();
         float getY();
         float getVertexNum();
         float dist(City neighbor);
+        static float distsq(City i, City j);
 };
 #endif

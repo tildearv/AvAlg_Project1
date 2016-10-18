@@ -3,7 +3,6 @@
 #include <time.h> // used for random
 #include <vector>
 
-
 #include "NearestNeighbor.h"
 
 using namespace std;

@@ -16,10 +16,15 @@ float City::getX(){ return x;}
 float City::getY(){ return y;}
 float City::getVertexNum(){ return vertex;}
 
+float City::distsq(City i, City j){
+    float xdist = i.getX() - j.getX();
+    float ydist = i.getY() - j.getY();
+    return  xdist*xdist + ydist*ydist;
+}
+
 // calc distance between this city and neighbor city
 float City::dist(City neighbor){
-float xdist = neighbor.getX() - x;
+    float xdist = neighbor.getX() - x;
     float ydist = neighbor.getY() - y;
     return  sqrt(pow(xdist,2) + pow(ydist,2));
 }
-
