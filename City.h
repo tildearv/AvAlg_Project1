@@ -1,5 +1,7 @@
 #ifndef __City_H_INCLUDED__
 #define __City_H_INCLUDED__
+#include <vector>
+using namespace std;
 class City{
     private:
         // store coordinates
@@ -14,3 +16,4 @@ class City{
         float getVertexNum();
         float dist(City neighbor);
 };
+#endif
