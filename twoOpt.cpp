@@ -9,18 +9,18 @@
 
 using namespace std;
 
-vector<int> twoOpt(vector<City> cities) {
+vector<int> twoOpt(Cities cities) {
 
     vector<int> tour = nearestNeighbor(cities);
     int count = 0;
     int size = tour.size();
-    //cout << "size = " << size << endl;
+    /* cout << "size = " << cities.getNumCities()<< endl; */
 
-    if(cities.size() == 0){
+    if(cities.getNumCities() == 0){
         return tour;
     }
 
-    double bestDistance = distance(tour, cities);
+    int bestDistance = cities.tourDist(tour);
 
     //cout << bestDistance << endl;
     if(size < 300){
@@ -34,10 +34,11 @@ vector<int> twoOpt(vector<City> cities) {
                     //cout << "k = " << k << endl;
                     vector<int> newTour = swap(tour, i, k);
 
-                    double dist = distance(newTour, cities);
+                    int dist = cities.tourDist(newTour);
 
-                    //cout << "newDist = " << dist << endl;
+                    /* cout << "newDist = " << dist << endl; */
                     if (dist < bestDistance) {
+                        /* cout <<  bestDistance << endl; */
                         // Improvement found so reset
                         //cout << bestDistance << endl;
                         //cout << dist << endl;
@@ -48,7 +49,6 @@ vector<int> twoOpt(vector<City> cities) {
                 }
                 ++i;
             }
-     
             ++count;
         }
 
@@ -77,7 +77,7 @@ vector<int> twoOpt(vector<City> cities) {
                 }
                 i+=mult;
             }
- 
+
         ++count;
         }
     }*/
@@ -91,7 +91,7 @@ vector<int> twoOpt(vector<City> cities) {
        3. take route[k+1] to end and add them in order to new_route
     */
 
-vector<int> swap(vector<int>& tour, int i, int k ) 
+vector<int> swap(vector<int>& tour, int i, int k )
 {
     vector<int> newTour;
 
@@ -106,19 +106,4 @@ vector<int> swap(vector<int>& tour, int i, int k )
     }
 
     return newTour;
-}
-
-double distance(vector<int> tour, vector<City> cities){
-
-    double distance = 0.0;
-
-    for (int i = 0; i < tour.size()-1; ++i){
-
-        distance += cities[tour[i]].dist(cities[tour[i+1]]);
-
-    }
-
-    distance += cities[tour[tour.size()-1]].dist(cities[tour[0]]);
-
-    return distance;
 }

@@ -62,9 +62,9 @@ Cities::Cities(istream& reader){
 int Cities::tourDist(vector<int> tour){
     int tourDist = 0;
     for (int i = 0; i < tour.size()-1; i++){
-        tourDist += this->distances[i][i+1];
+        tourDist += this->distances[tour[i]][tour[i+1]];
     }
-    tourDist += this->distances[tour.size()-1][0];
+    tourDist += this->distances[tour[tour.size()-1]][tour[0]];
     return tourDist;
 };
 

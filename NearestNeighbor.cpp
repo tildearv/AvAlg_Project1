@@ -6,7 +6,6 @@
 #include <algorithm>
 
 #include "NearestNeighbor.h"
-#include "Cities.h"
 
 using namespace std;
 
