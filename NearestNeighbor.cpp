@@ -2,47 +2,46 @@
 #include <stdlib.h> // srand
 #include <time.h> // used for random
 #include <vector>
+#include <iostream> // cout
+#include <algorithm>
 
 #include "NearestNeighbor.h"
+#include "Cities.h"
 
 using namespace std;
 
 /* Tour  construction heuristic.  Input  is an  array  of all  cities */
 /* outputs a tour.                                                    */
 
-vector<int> nearestNeighbor(vector<City> cities){
+vector<int> nearestNeighbor(Cities cities){
 
     vector<int> tour;
 
     // take some random vertex
     srand (time(NULL));
-    int rnd = rand() % cities.size();
-
-    City current = cities[rnd]; // creates city
+    int thisvertex = rand() % cities.getNumCities();
 
     // put in the first city and delete it from cities
-    tour.push_back(current.getVertexNum());
-    cities.erase(cities.begin() + rnd);
+    tour.push_back(thisvertex);
+
 
     // some variables to keep track of best
     float best = numeric_limits<float>::max();
     int best_ind = -1;
 
-
-    while(cities.size() > 0){
-        for(int i=0; i!=cities.size(); ++i){
-            // calc distance between current and city[i]
-            float dist = current.dist(cities[i]);
-            if (dist < best){
-                best = dist;
-                best_ind = i;
+    while( tour.size() < cities.getNumCities() ){
+        for(int j=0; j < cities.getNumCities(); ++j){
+            // calc distance between thisvertex and j
+            if( ( find(tour.begin(), tour.end(), j) == tour.end() ) ){
+                int thisdist = cities.distance(thisvertex, j);
+                if (thisdist < best){
+                    best = thisdist;
+                    best_ind = j;
+                }
             }
         }
-        // erase best city and set it to current
-        current = cities[best_ind];
-        cities.erase(cities.begin() + best_ind);
-        tour.push_back(current.getVertexNum());
-
+        thisvertex = best_ind;
+        tour.push_back(thisvertex);
         best = numeric_limits<float>::max();
     }
     return tour;

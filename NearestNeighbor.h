@@ -1,6 +1,6 @@
 #ifndef __nearestNeighbor_H_INCLUDED__
 #define __nearestNeighbor_H_INCLUDED__
-#include "City.h"
+#include "Cities.h"
 using namespace std;
-vector<int> nearestNeighbor(vector<City> cities);
+vector<int> nearestNeighbor(Cities cities);
 #endif
