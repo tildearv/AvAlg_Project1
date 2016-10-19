@@ -2,12 +2,12 @@
 #include <math.h> // pow, sqrt etc
 #include <iostream> // cout
 #include <string>
+#include <time.h>
 
 /* Header files */
 #include "Cities.h"
 
 using namespace std;
-
 
 
 Cities::City::City(int vertex, float x, float y){
@@ -30,10 +30,14 @@ float Cities::City::getY(){ return City::y;};
 float Cities::City::getVertexNum(){ return City::vertex;};
 
 Cities::Cities(istream& reader){
+    /* clock_t start; */
+    /* start = clock(); */
+
     string line;
     getline(reader, line); // first line is the num of cities
     this->numCities = stoi(line.c_str()); // str to int
     this->distances = vector< vector<int> > (numCities, vector<int>(numCities));
+    vector< vector<float> > xycords = vector< vector<float> >(this->numCities, vector<float>(this->numCities));
 
     for(int i = 0; i < this->numCities; i++){
         getline(reader, line); // x, y coordinates
@@ -45,13 +49,18 @@ Cities::Cities(istream& reader){
 
         // create city and put it in cities array
         // cities are ordered by appearence
-        this->listCities.push_back(Cities::City(i,x,y));
+        /* this->listCities.push_back(Cities::City(i,x,y)); */
+        xycords[i][0] = x;
+        xycords[i][1] = y;
     }
+    /* cout << float(clock() - start)/CLOCKS_PER_SEC << endl; */
 
-
-    for(int i = 0; i < this->listCities.size(); i++){
-        for (int j = i; j < this->listCities.size(); j++){
-            int dij = Cities::City::dist(listCities[i], listCities[j]);
+    for(int i = 0; i < this->numCities; i++){
+        for (int j = i; j < this->numCities; j++){
+            float xdist = xycords[i][0] - xycords[j][0];
+            float ydist = xycords[i][1] - xycords[j][1];
+            int dij = nearbyint(sqrt(xdist*xdist + ydist*ydist));
+            /* cout << dij << endl; */
             /* symmetric distances */
             this->distances[i][j] = dij;
             this->distances[j][i] = dij;
@@ -74,4 +83,3 @@ int Cities::distance(int i, int j){
 };
 
 int Cities::getNumCities(){return this->numCities;};
-

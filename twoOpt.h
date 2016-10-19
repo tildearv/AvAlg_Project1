@@ -5,5 +5,5 @@ using namespace std;
 #include "Cities.h"
 using namespace std;
 vector<int> swap(vector<int>& tour, int i, int k );
-vector<int> twoOpt(Cities cities);
+vector<int> twoOpt(Cities cities, clock_t start);
 #endif

@@ -1,90 +1,54 @@
+#include <algorithm>
 #include <fstream>
 #include <iostream>
-#include <stdlib.h>
-#include <time.h>
-#include <vector>
-#include <algorithm>
 #include <limits>
-#include "twoOpt.h"
+#include <stdlib.h> // srand
+#include <time.h> // timer
+#include <vector>
 
+#include "twoOpt.h"
 using namespace std;
 
-vector<int> twoOpt(Cities cities) {
+vector<int> twoOpt(Cities cities, clock_t start) {
+
+    /* used for random */
+    srand (time(NULL));
 
     vector<int> tour = nearestNeighbor(cities);
-    int count = 0;
-    int size = tour.size();
-    /* cout << "size = " << cities.getNumCities()<< endl; */
 
     if(cities.getNumCities() == 0){
         return tour;
     }
 
     int bestDistance = cities.tourDist(tour);
+    float currentTime = float(clock() - start)/CLOCKS_PER_SEC;
+    int size = tour.size();
 
-    //cout << bestDistance << endl;
-    if(size < 300){
-
-        while (count < 3){
-            int i = 1;
-            while(i < size - 1){
-                //cout << "i = " << i << endl;
-
-                for (int k = i + 1; k < size; ++k){
-                    //cout << "k = " << k << endl;
+    while( currentTime < 0.9*2 ){
+            if (currentTime > 0.9*2){
+                return tour;
+            }
+            int i = 0;
+            while (i < size-1){
+                for (int k = i + 1; k < size; k++){
+                    currentTime = float(clock() - start)/CLOCKS_PER_SEC;
+                    if (currentTime > 0.9*2){
+                        return tour;
+                    }
                     vector<int> newTour = swap(tour, i, k);
-
                     int dist = cities.tourDist(newTour);
 
-                    /* cout << "newDist = " << dist << endl; */
                     if (dist < bestDistance) {
-                        /* cout <<  bestDistance << endl; */
-                        // Improvement found so reset
-                        //cout << bestDistance << endl;
-                        //cout << dist << endl;
-                        count = 0;
                         tour = newTour;
                         bestDistance = dist;
                     }
                 }
-                ++i;
+                i++;
             }
-            ++count;
-        }
-
-    }/*else{
-        int mult = size%10;
-        while (count < 3){
-            int i = 1;
-            while(i < size - 1){
-                //cout << "i = " << i << endl;
-
-                for (int k = i + 1; k < size; ++k){
-                    //cout << "k = " << k << endl;
-                    vector<int> newTour = swap(tour, i, k);
-
-                    double dist = distance(newTour, cities);
-
-                    //cout << "newDist = " << dist << endl;
-                    if (dist < bestDistance) {
-                        // Improvement found so reset
-                        //cout << bestDistance << endl;
-                        //cout << dist << endl;
-                        count = 0;
-                        tour = newTour;
-                        bestDistance = dist;
-                    }
-                }
-                i+=mult;
-            }
-
-        ++count;
-        }
-    }*/
-    //cout << bestDistance << endl;
+        currentTime = float(clock() - start)/CLOCKS_PER_SEC;
+    }
     return tour;
 }
-
     /* From Wikipedia:
        1. take route[1] to route[i-1] and add them in order to new_route
        2. take route[i] to route[k] and add them in reverse order to new_route

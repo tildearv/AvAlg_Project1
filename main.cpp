@@ -1,6 +1,7 @@
 #include <fstream> // istream I/O
 #include <iostream> // cout
 #include <vector>
+#include <time.h> // timer
 
 
 /* Algorithms */
@@ -13,9 +14,19 @@
 /* To run: ./a.out < "./samples/tsp.in" */
 /* To compile: g++ NearestNeighbor.cpp City.cpp */
 
+
+
+
+
 using namespace std;
 
 int main(int argc, char* argv[]) {
+
+
+    /* timer */
+    clock_t start;
+    start = clock();
+
     istream* input = &cin; // input is stdin by default
     if(argc > 1){
         input = new ifstream(argv[1]);
@@ -26,7 +37,7 @@ int main(int argc, char* argv[]) {
     // use nearestNeighbor algorithm
     // comment out if you want another algorithm to run
 
-    vector<int> tour = twoOpt(cities);
+    vector<int> tour = twoOpt(cities, start);
     /* vector<int> tour = nearestNeighbor(cities); */
 
 
