@@ -24,15 +24,15 @@ vector<int> twoOpt(Cities cities, clock_t start) {
     float currentTime = float(clock() - start)/CLOCKS_PER_SEC;
     int size = tour.size();
 
-    while( currentTime < 0.9*2 ){
-            if (currentTime > 0.9*2){
+    while( currentTime < 1.98 ){
+            if (currentTime > 1.98){
                 return tour;
             }
             int i = 0;
             while (i < size-1){
                 for (int k = i + 1; k < size; k++){
                     currentTime = float(clock() - start)/CLOCKS_PER_SEC;
-                    if (currentTime > 0.9*2){
+                    if (currentTime > 1.98){
                         return tour;
                     }
                     vector<int> newTour = swap(tour, i, k);
