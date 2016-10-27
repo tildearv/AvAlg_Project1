@@ -1,7 +1,7 @@
 # AvAlg_Project1
 
 To run: ./main.o < "./samples/tsp.in"
-g++ -std=c++11 -o main.o main.cpp NearestNeighbourg.cpp twoOpt.cpp Cities.cpp
+g++ -std=c++11 -o main.o main.cpp NearestNeighbou.cpp twoOpt.cpp Cities.cpp TabuSearch.cpp
 
 #Tour construction heuristic
 ##Nearest Neighbor
