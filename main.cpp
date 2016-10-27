@@ -33,6 +33,7 @@ int main(int argc, char* argv[]) {
     }
 
     Cities cities(*input);
+    cities.findkNN();
 
     // use nearestNeighbor algorithm
     // comment out if you want another algorithm to run

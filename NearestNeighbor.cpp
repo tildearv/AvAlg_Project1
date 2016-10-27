@@ -1,9 +1,9 @@
+#include <algorithm>
+#include <iostream> // cout
 #include <limits> // max float
 #include <stdlib.h> // srand
 #include <time.h> // used for random
 #include <vector>
-#include <iostream> // cout
-#include <algorithm>
 
 #include "NearestNeighbor.h"
 

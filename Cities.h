@@ -22,9 +22,12 @@ class Cities{
         int distance(int i, int j);
         int tourDist(vector<int> tour);
         int getNumCities();
+        void findkNN();
     private:
         vector<Cities::City> listCities;
         vector< vector<int> > distances;
+        vector< vector<int> > kNN;
+        void sortkNN();
         int numCities;
 };
 #endif
