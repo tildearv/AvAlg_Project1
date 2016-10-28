@@ -7,8 +7,8 @@
 /* Algorithms */
 #include "NearestNeighbor.h"
 #include "Cities.h"
-#include "twoOpt.h"
-#include "TabuSearch.h"
+//#include "twoOpt.h"
+#include "Tabu2.h"
 
 /* To run: ./a.out < "./samples/tsp.in" */
 /* To compile: g++ NearestNeighbor.cpp City.cpp */
@@ -36,9 +36,9 @@ int main(int argc, char* argv[]) {
     //vector<int> tour = twoOpt(cities, start);
     /* vector<int> tour = nearestNeighbor(cities); */
 
-    TabuSearch tabu(cities);
-
-    vector<int> tour = tabu.solve(cities, start, 2);
+    //TabuSearch tabu(cities);
+    Tabu2 tabu;
+    vector<int> tour = tabu.tabuSolve(cities);
 
     // outputs the tour to Kattis
     //vector<int> tour = TabuSearch(cities, start);

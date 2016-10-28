@@ -12,6 +12,7 @@ class TabuSearch{
         vector<int> solve(Cities, clock_t, int);
         vector<int> twoOpt(Cities, int);
         vector<int> swap(vector<int>&, int, int);
+        void freeMemory();
     private:
         float bestSolverScore;
         int** tabu_list;

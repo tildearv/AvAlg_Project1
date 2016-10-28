@@ -66,7 +66,7 @@ vector<int> TabuSearch::solve(Cities cities, clock_t start, int iter){
         return init;
     }
 
-    if(size < 300){
+    if(size < 100){
 
         int bestSolutionScore = cities.tourDist(init);
 
@@ -108,6 +108,7 @@ vector<int> TabuSearch::solve(Cities cities, clock_t start, int iter){
 
 vector<int> TabuSearch::twoOpt(Cities cities, int iter) {
 
+    //int bestDistance = std::numeric_limits<int>::max();
     int bestDistance = cities.tourDist(solution);
 
     int i = 0;
@@ -116,10 +117,12 @@ vector<int> TabuSearch::twoOpt(Cities cities, int iter) {
                 vector<int> newTour = swap(solution, i, k);
                 int dist = cities.tourDist(newTour);
                 int penalDist = dist + PENAL_LONG_TERM + tabu_list[i][k];
-
-                if (dist < bestDistance && tabu_list[i][k] <= iter || dist < bestSolverScore) {
+                if ((bestDistance > penalDist && tabu_list[i][k] <= iter) || dist < bestSolverScore) {
                     solution = newTour;
                     bestDistance = dist;
+                    bestDistance = penalDist;
+                    tabu_list[i][k] = iter + TABU_LENGTH;
+                    tabu_list[k][i] = iter + TABU_LENGTH;
                 }
             }
             ++i;
@@ -143,85 +146,3 @@ vector<int> TabuSearch::swap(vector<int>& tour, int i, int k ){
 
     return newTour;
 }
-
-/*void tabu(Cities cities, clock_t start){
-
-    SA criteria:
-
-    1. Max number of iterations reached
-    2. Acceptance Ratio is less than the threshold 
-    3. No improvement in last fixed number of iterations 
-    
-
-    int maxIter = 1000;
-    int transTemp = 100;
-    int acceptedTemp = 50;
-
-
-    vector<int> init_state = nearestNeighbor(cities);
-    vector<int> currentState = init_state;
-
-    double T = Cities::tourDist(init_state);
-
-    doule alpha = 0.99;
-    doule rf = 0.1;
-
-    int iter = 0;
-    iterLastChange = 0;
-    int accRatio = 1;
-
-    while (iter < maxIter && accRatio > rf){
-        double currentTemp = Cities::tourDist(currentState);
-        ++iter;
-        int transTried = 0;
-        int transAccept = 0;
-
-        while(transTried < transTemp && transAccept < acceptedTemp){
-
-            ++transTried;
-            int i, j;
-            int city1 = int thisvertex = rand() % cities.getNumCities();
-            int city2 = int thisvertex = rand() % cities.getNumCities();
-            vector<int> neighbor;
-
-            while(city1==city2){
-                city2 = int thisvertex = rand() % cities.getNumCities();
-            }
-
-            if(city2 > city1){
-                i = city1;
-                j = city2;
-            }else{
-                i = city2;
-                j = city1;
-            }
-            neighbor(i) = currentState(j);
-            neighbor(j) = currentState(i);
-
-            if(j-i = 1){
-                int tempCost = currentTemp - 
-            }
-
-            double delta = nbr_cost - crnt_tour_cost; 
-            double prob1 = exp(-delta/T); 
-            double prob2 = random('uniform',0,1); 
-
-            if(delta < 0 || prob2 < prob1){
-                sum = sum+delta;
-                currentState = neighbor;
-                currentTemp = tempCost;
-                ++transAccept;
-                if(currentTemp < bestObj){
-                    bestObj = currentTemp;
-                    bestTour = currentState;
-                }
-            }
-            else{
-                neighbor = currentState;
-                tempCost = currentTemp;
-            }
-
-        }
-
-    }
-}*/
