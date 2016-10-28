@@ -9,8 +9,8 @@ class Tabu2{
     public:
         Tabu2();
         vector<int> tabuSolve(Cities);
-        void tabuMove(int, int);
-        void decrementTabu();
+        void addTabuList(int, int);
+        void resetTabuList();
         vector<int> twoOpt(Cities, vector<int>);
         vector<int> swap(vector<int>&, int, int);
 

@@ -31,10 +31,10 @@ vector<int> Tabu2::tabuSolve(Cities cities){
         return init;
     }
 
-    for(int i = 0; i < size; i++){      
+    for(int i = 0; i < TABU_LENGTH; i++){      
         tabu_list[i] = new int[TABU_LENGTH];
     }
-    if(size < 100){
+    if(size < 200){
         for(int i = 0; i < NO_ITERATIONS; ++i){
         //cout << "i1 = " << i <<endl;
             currentSolution = twoOpt(cities, currentSolution);
@@ -50,18 +50,18 @@ vector<int> Tabu2::tabuSolve(Cities cities){
 
 }
 
-void Tabu2::tabuMove(int city1, int city2){
-    //cout << "move "<<city1<<city2<<endl;
-    tabu_list[city1][city2]+= 5;
-    tabu_list[city2][city1]+= 5;
+void Tabu2::addTabuList(int city1, int city2){
+    //cout <<"move "<<city1 <<"&"<<city2<<endl;
+    tabu_list[city1][city2] += 5;
+    tabu_list[city2][city1] += 5;
         
 }
 
-void Tabu2::decrementTabu(){
+void Tabu2::resetTabuList(){
     for(int i = 0; i<TABU_LENGTH; ++i){
         for(int j = 0; j<TABU_LENGTH; ++j){
             //cout<<"decrementTabu"<<endl;
-            tabu_list[i][j]-=tabu_list[i][j]<=0?0:1;
+            tabu_list[i][j] -= tabu_list[i][j]<=0?0:1;
         } 
     }
 }
@@ -69,6 +69,7 @@ void Tabu2::decrementTabu(){
 vector<int> Tabu2::twoOpt(Cities cities, vector<int> currentSolution) {
 
     //int bestDistance = std::numeric_limits<int>::max();
+
     int bestDistance = cities.tourDist(currentSolution); 
     //cout << "bestDist = "<< bestDistance<<endl;
     bool first = true;
@@ -83,20 +84,17 @@ vector<int> Tabu2::twoOpt(Cities cities, vector<int> currentSolution) {
                 int dist = cities.tourDist(newTour);
                 //cout<<TABU_LENGTH<<endl;
                 if ((dist > bestDistance || first) && tabu_list[i][k] == 0) {
-                    //cout << "tabuelem = " << tabu_list[i][k]<<endl;
                     first = false;
                     city1 = i;
                     city2 = k;
                     currentSolution = newTour;
                     bestDistance = dist;
                 }
-                if(city1 != 0){
-                    decrementTabu();
-                    tabuMove(city1, city2);
-                }
             }
             ++i;
         }
+    resetTabuList();
+    addTabuList(city1, city2);
     return currentSolution;
 }
 
