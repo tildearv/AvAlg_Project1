@@ -7,10 +7,9 @@
 using namespace std;
 class TabuSearch{
     public:
-        TabuSearch(Cities, clock_t);
+        TabuSearch(Cities);
         void resetTabuList();
         vector<int> solve(Cities, clock_t, int);
-        vector<int> getBestNearbySolution(int);
         vector<int> twoOpt(Cities, int);
         vector<int> swap(vector<int>&, int, int);
     private:
@@ -21,6 +20,8 @@ class TabuSearch{
         vector<int> init;
         vector<int> solution;
         vector<int> bestSolution;
+        float currentTime;
+        clock_t start;
 };
 
 #endif

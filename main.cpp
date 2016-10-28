@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
     //vector<int> tour = twoOpt(cities, start);
     /* vector<int> tour = nearestNeighbor(cities); */
 
-    TabuSearch tabu(cities, start);
+    TabuSearch tabu(cities);
 
     vector<int> tour = tabu.solve(cities, start, 2);
 

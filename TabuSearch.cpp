@@ -35,9 +35,10 @@ using namespace std;
     If the number of tabus on the tabu list have reached the maximum number of tabus ( you are defining the number ) a tabu expires. The tabus on the list expires in the order they have been entered .. first in first out.
 */
 
-TabuSearch::TabuSearch(Cities cities, clock_t start){
+TabuSearch::TabuSearch(Cities cities){
     bestSolverScore = numeric_limits<float>::max();
     init = nearestNeighbor(cities);
+    bestSolution = init;
     size = init.size();
 
     tabu_list = new int*[size];
@@ -65,48 +66,47 @@ vector<int> TabuSearch::solve(Cities cities, clock_t start, int iter){
         return init;
     }
 
-    if (size < 50){
+    if(size < 300){
 
-    int bestSolutionScore = cities.tourDist(init);
+        int bestSolutionScore = cities.tourDist(init);
 
-    for(int i = 0; i < iter; ++i){
-        solution = init;
-        resetTabuList();
+        for(int i = 0; i < iter; ++i){
+            currentTime = float(clock() - start)/CLOCKS_PER_SEC;
+            if(currentTime > 1){return bestSolution;}
+            solution = init;
+            resetTabuList();
 
-        int count = 0;
+            int count = 0;
 
-        bestSolverScore = numeric_limits<float>::max();;
+            bestSolverScore = numeric_limits<float>::max();;
 
-        for(int j = 0; j < MAX_ITERATION; ++j){
-            solution = twoOpt(cities, j);
-            int score = cities.tourDist(solution);
-            if(score < bestSolverScore){
-                bestSolverScore = score;
-                count = 0;
+            for(int j = 0; j < MAX_ITERATION; ++j){
+                solution = twoOpt(cities, j);
+                int score = cities.tourDist(solution);
+                if(score < bestSolverScore){
+                    bestSolverScore = score;
+                    count = 0;
 
-                if(bestSolverScore < bestSolutionScore){
-                    for(int k = 0; k < size; ++k){
-                        bestSolution = solution;
-                    }   
-                    bestSolutionScore = bestSolverScore;
-                }                               
-            }else{
-                ++count;
-                if(count > TIME_TRY){                   
-                    break;  
-                } 
+                    if(bestSolverScore < bestSolutionScore){
+                        for(int k = 0; k < size; ++k){
+                            bestSolution = solution;
+                        }   
+                        bestSolutionScore = bestSolverScore;
+                    }                               
+                }else{
+                    ++count;
+                    if(count > TIME_TRY){                   
+                        break;  
+                    } 
+                }
             }
+            return bestSolution;
         }
-        return bestSolution;
     }
-    }
-    else{return init;}
+    return bestSolution;
 }
 
 vector<int> TabuSearch::twoOpt(Cities cities, int iter) {
-
-    /* used for random */
-    srand (time(NULL));
 
     int bestDistance = cities.tourDist(solution);
 
