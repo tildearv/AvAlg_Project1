@@ -11,6 +11,7 @@ using namespace std;
 #include "Tabu2.h"
 
 #define NO_ITERATIONS 100
+#define TABU_ITER 5
 
 Tabu2::Tabu2(){
 
@@ -34,6 +35,7 @@ vector<int> Tabu2::tabuSolve(Cities cities){
     for(int i = 0; i < TABU_LENGTH; i++){      
         tabu_list[i] = new int[TABU_LENGTH];
     }
+    resetTabuList();
     if(size < 200){
         for(int i = 0; i < NO_ITERATIONS; ++i){
         //cout << "i1 = " << i <<endl;
@@ -52,8 +54,8 @@ vector<int> Tabu2::tabuSolve(Cities cities){
 
 void Tabu2::addTabuList(int city1, int city2){
     //cout <<"move "<<city1 <<"&"<<city2<<endl;
-    tabu_list[city1][city2] += 5;
-    tabu_list[city2][city1] += 5;
+    tabu_list[city1][city2] += TABU_ITER;
+    tabu_list[city2][city1] += TABU_ITER;
         
 }
 
