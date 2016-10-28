@@ -20,11 +20,12 @@ vector<int> Tabu2::tabuSolve(Cities cities){
 
     size = cities.getNumCities();
 
-    TABU_LENGTH = size + 10;
+    TABU_LENGTH = size;
     tabu_list = new int*[TABU_LENGTH];
     init = nearestNeighbor(cities);
     vector<int> currentSolution = init;
     int bestCost = cities.tourDist(init);
+    bestSolution = init;
 
     if(size == 0){
         return init;
@@ -33,13 +34,16 @@ vector<int> Tabu2::tabuSolve(Cities cities){
     for(int i = 0; i < size; i++){      
         tabu_list[i] = new int[TABU_LENGTH];
     }
-
     if(size < 100){
-
         for(int i = 0; i < NO_ITERATIONS; ++i){
         //cout << "i1 = " << i <<endl;
-
             currentSolution = twoOpt(cities, currentSolution);
+            currentCost = cities.tourDist(currentSolution);
+
+            if(currentCost < bestCost){
+                bestSolution = currentSolution;
+                bestCost = currentCost;
+            }
         }
     }
     return init;
@@ -56,7 +60,7 @@ void Tabu2::tabuMove(int city1, int city2){
 void Tabu2::decrementTabu(){
     for(int i = 0; i<TABU_LENGTH; ++i){
         for(int j = 0; j<TABU_LENGTH; ++j){
-            cout<<"decrementTabu"<<endl;
+            //cout<<"decrementTabu"<<endl;
             tabu_list[i][j]-=tabu_list[i][j]<=0?0:1;
         } 
     }
@@ -85,6 +89,10 @@ vector<int> Tabu2::twoOpt(Cities cities, vector<int> currentSolution) {
                     city2 = k;
                     currentSolution = newTour;
                     bestDistance = dist;
+                }
+                if(city1 != 0){
+                    decrementTabu();
+                    tabuMove(city1, city2);
                 }
             }
             ++i;

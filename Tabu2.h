@@ -19,6 +19,8 @@ class Tabu2{
         int TABU_LENGTH;
         int** tabu_list;
         vector<int> init;
+        int currentCost;
+        vector<int> bestSolution;
  
 };
 
