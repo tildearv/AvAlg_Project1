@@ -15,19 +15,19 @@ class Cities{
                 float getX();
                 float getY();
                 float getVertexNum();
-                static int dist(City i, City j);
                 static float distsq(City i, City j);
         };
         Cities(istream& reader);
         int distance(int i, int j);
         int tourDist(vector<int> tour);
         int getNumCities();
+        int getNNSize();
         void findkNN();
+        vector< vector<int> > kNN;
     private:
+        static int dist(City i, City j);
         vector<Cities::City> listCities;
         vector< vector<int> > distances;
-        vector< vector<int> > kNN;
-        void sortkNN();
         int numCities;
 };
 #endif
