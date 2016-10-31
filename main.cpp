@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
     /* timer */
     clock_t start;
     start = clock();
+    float timeLimit = 0.9*2;
 
     istream* input = &cin; // input is stdin by default
     if(argc > 1){

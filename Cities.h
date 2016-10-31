@@ -18,8 +18,8 @@ class Cities{
                 static float distsq(City i, City j);
         };
         Cities(istream& reader);
-        int distance(int i, int j);
-        int tourDist(vector<int> tour);
+        int ds(int i, int j);
+        int tourDist(vector<int> &tour);
         int getNumCities();
         int getNNSize();
         void findkNN();

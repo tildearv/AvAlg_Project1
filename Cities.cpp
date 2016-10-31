@@ -77,7 +77,7 @@ Cities::Cities(istream& reader){
     }
 };
 
-int Cities::tourDist(vector<int> tour){
+int Cities::tourDist(vector<int> &tour){
     int tourDist = 0;
     for (int i = 0; i < tour.size()-1; i++){
         tourDist += this->distances[tour[i]][tour[i+1]];
@@ -91,7 +91,7 @@ int Cities::tourDist(vector<int> tour){
 
 
 /* return distance between city i and city j */
-int Cities::distance(int i, int j){
+int Cities::ds(int i, int j){
     return this->distances[i][j];
 };
 
@@ -103,9 +103,6 @@ int Cities::distance(int i, int j){
 int Cities::getNumCities(){return this->numCities;};
 
 int Cities::getNNSize(){return this->kNN[0].size();};
-
-
-
 
 
 

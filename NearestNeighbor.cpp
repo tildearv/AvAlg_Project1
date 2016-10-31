@@ -32,7 +32,7 @@ vector<int> nearestNeighbor(Cities cities){
         for(int j=0; j < cities.getNumCities(); ++j){
             // calc distance between thisvertex and j
             if( ( find(tour.begin(), tour.end(), j) == tour.end() ) ){
-                int thisdist = cities.distance(thisvertex, j);
+                int thisdist = cities.ds(thisvertex, j);
                 if (thisdist < best){
                     best = thisdist;
                     best_ind = j;
