@@ -86,10 +86,6 @@ int Cities::tourDist(vector<int> &tour){
     return tourDist;
 };
 
-
-
-
-
 /* return distance between city i and city j */
 int Cities::ds(int i, int j){
     //cout<<" i = "<<i<<"j = "<<j<<endl;
@@ -97,16 +93,9 @@ int Cities::ds(int i, int j){
     return this->distances[i][j];
 };
 
-
-
-
-
-
 int Cities::getNumCities(){return this->numCities;};
 
 int Cities::getNNSize(){return this->kNN[0].size();};
-
-
 
 void Cities::findkNN(){
     /*  This solution assumes cities is ordered so that cities[k] has */

@@ -62,7 +62,7 @@ vector<int> twoOpt(Cities &cities, float time) {
     int bestDistance = cities.tourDist(tour);
     vector <int> bestTour = tour;
 
-    float timeLimit = 1.9 - time;
+    float timeLimit = 1.95 - time;
     //float currentTime = float(clock() - start)/CLOCKS_PER_SEC;
 
     if(tour.size() == 0){
