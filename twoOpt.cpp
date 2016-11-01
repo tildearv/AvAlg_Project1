@@ -3,8 +3,9 @@
 #include <iostream>
 #include <limits>
 #include <stdlib.h> // srand
-#include <time.h> // timer
+//#include <time.h> // timer
 #include <vector>
+#include <ctime>
 
 #include "twoOpt.h"
 using namespace std;
@@ -50,20 +51,19 @@ vector<int> opt2(Cities &cities, vector<int> tour){
 
 
 
-vector<int> twoOpt(Cities &cities, float time) {
+vector<int> twoOpt(Cities &cities, double time) {
 
-    clock_t start;
-    start = clock();
-    /* used for random */
-    //srand (time(NULL));
-    float currentTime = time;
+    clock_t start = clock();
+
+    double currentTime = time;
+
     vector<int> tour = nearestNeighbor(cities);
 
     int bestDistance = cities.tourDist(tour);
     vector <int> bestTour = tour;
 
-    float timeLimit = 1.95 - time;
-    //float currentTime = float(clock() - start)/CLOCKS_PER_SEC;
+    double timeLimit = 1.95;
+    clock_t end = clock();
 
     if(tour.size() == 0){
         return tour;
@@ -76,14 +76,15 @@ vector<int> twoOpt(Cities &cities, float time) {
         int dist = cities.tourDist(new_tour);
 
         if (dist < bestDistance) {
-            //cout<<"found better, "<<dist<<" - "<<bestDistance<<endl;
+            cout<<"found better, "<<dist<<" - "<<bestDistance<<endl;
             bestTour = new_tour;
             bestDistance = dist;
         }
-        currentTime = float(clock() - start)/CLOCKS_PER_SEC;
+        end = clock();
+        currentTime = double(end - start)/CLOCKS_PER_SEC;
     }
     //cout<<"iterations = "<<iter<<endl;
-    //cout<<"time: "<<currentTime<<endl;
+    cout<<"time: "<<currentTime<<endl;
     return bestTour;
 }
 

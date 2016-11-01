@@ -14,6 +14,8 @@ using namespace std;
 
 vector<int> nearestNeighbor(Cities &cities){
 
+    clock_t begin = clock();
+
     vector<int> tour;
 
     // take some random vertex
@@ -46,5 +48,8 @@ vector<int> nearestNeighbor(Cities &cities){
         tour.push_back(thisvertex);
         best = numeric_limits<float>::max();
     }
+    clock_t end = clock();
+    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    cout<<"time after NN = "<<elapsed_secs<<endl;
     return tour;
 }
