@@ -18,7 +18,7 @@ vector<int> nearestNeighbor(Cities &cities){
 
     // take some random vertex
     srand (time(NULL));
-    int thisvertex = rand() % cities.getNumCities();
+    int thisvertex = 0;//rand() % cities.getNumCities();
     //cout<<thisvertex<<endl;
 
     // put in the first city and delete it from cities
