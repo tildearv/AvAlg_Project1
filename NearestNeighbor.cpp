@@ -10,13 +10,14 @@
 using namespace std;
 
 /* Tour  construction heuristic.  Input  is an  array  of all  cities */
-/* outputs a tour.                                                    */
+/* outputs a tour.                                             */
 
 vector<int> nearestNeighbor(Cities &cities){
 
     clock_t begin = clock();
 
     vector<int> tour;
+    int N = cities.getNumCities();
 
     // take some random vertex
     srand (time(NULL));
@@ -26,15 +27,27 @@ vector<int> nearestNeighbor(Cities &cities){
     // put in the first city and delete it from cities
     tour.push_back(thisvertex);
 
+    /*   tour[0] = 0
+   used[0] = true
+   for i = 1 to n-1
+      best = -1
+      for j = 0 to n-1
+         if not used[j] and (best = -1 or dist(tour[i-1],j) < dist(tour[i-1],best))
+            best = j
+      tour[i] = best
+      used[best] = true
+   return tour */
+
 
     // some variables to keep track of best
-    float best = numeric_limits<float>::max();
-    int best_ind = -1;
+    double best = numeric_limits<double>::max();
+    //int best_ind = -1;
 
-    while( tour.size() < cities.getNumCities() ){
-        for(int j=0; j < cities.getNumCities(); ++j){
+    while( tour.size() < N ){
+        int best_ind = -1;
+        for(int j=0; j < N; ++j){
             // calc distance between thisvertex and j
-            if( ( find(tour.begin(), tour.end(), j) == tour.end() ) ){
+            if( ( find(tour.begin(), tour.end(), j) == tour.end() )){
                 int thisdist = cities.ds(thisvertex, j);
                 if (thisdist < best){
                     best = thisdist;
@@ -43,10 +56,10 @@ vector<int> nearestNeighbor(Cities &cities){
             }
         }
         //cout<<best_ind<<endl;
-        if(best_ind == -1){best_ind = 0;}
+        //if(best_ind == -1){best_ind = 0;}
         thisvertex = best_ind;
         tour.push_back(thisvertex);
-        best = numeric_limits<float>::max();
+        best = numeric_limits<double>::max();
     }
     clock_t end = clock();
     double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;

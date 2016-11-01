@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
     double currentTime = double(end - start) / CLOCKS_PER_SEC;
 
     //float currentTime = float(clock() - start)/CLOCKS_PER_SEC;
-    cout<<"Time after init: "<<currentTime<<endl;
+    //cout<<"Time after init: "<<currentTime<<endl;
     /* cities.findkNN(); */
 
     // use nearestNeighbor algorithm

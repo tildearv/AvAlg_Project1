@@ -76,7 +76,7 @@ vector<int> twoOpt(Cities &cities, double time) {
         int dist = cities.tourDist(new_tour);
 
         if (dist < bestDistance) {
-            cout<<"found better, "<<dist<<" - "<<bestDistance<<endl;
+            //cout<<"found better, "<<dist<<" - "<<bestDistance<<endl;
             bestTour = new_tour;
             bestDistance = dist;
         }
@@ -84,7 +84,7 @@ vector<int> twoOpt(Cities &cities, double time) {
         currentTime = double(end - start)/CLOCKS_PER_SEC;
     }
     //cout<<"iterations = "<<iter<<endl;
-    cout<<"time: "<<currentTime<<endl;
+    //cout<<"time: "<<currentTime<<endl;
     return bestTour;
 }
 
