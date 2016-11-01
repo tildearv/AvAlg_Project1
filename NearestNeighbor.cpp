@@ -61,7 +61,7 @@ vector<int> nearestNeighbor(Cities &cities){
     
     clock_t end = clock();
     double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-    cout<<"time after NN = "<<elapsed_secs<<endl;
+    //cout<<"time after NN = "<<elapsed_secs<<endl;
     return tour;
 }
 

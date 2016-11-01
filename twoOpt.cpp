@@ -36,7 +36,7 @@ tuple<int, vector<int>> TwoOpt::opt2(Cities &cities, vector<int> tour){
                 //cout << a << b << c << d << endl;
                 //cout<< "new"<<cities.ds(a, c) + cities.ds(b, d)<<endl;
                 //cout<< "before"<<cities.ds(a, b) + cities.ds(c, d)<<endl;
-                it = i;
+                //it = i;
                 vector<int> newTour = swap(tour, i, k);
                 //cout<<"after swap = "<<cities.tourDist(newTour)<<endl;
                 return make_tuple((old_dist - new_dist), newTour);
@@ -44,7 +44,7 @@ tuple<int, vector<int>> TwoOpt::opt2(Cities &cities, vector<int> tour){
         }
     }
     //cout<<cities.tourDist(tour)<<endl;
-    it = 0;
+    //it = 0;
     return make_tuple(0, tour);
 };
 
@@ -67,10 +67,10 @@ vector<int> TwoOpt::twoOpt(Cities &cities, double time) {
     if(tour.size() == 0){
         return tour;
     }
-    //int iter = 0;
+    int iter = 0;
 
     while(currentTime < timeLimit){
-        //++iter;
+        ++iter;
         auto new_tour_tuple = opt2(cities, bestTour);
         if (get<0>(new_tour_tuple) != 0) {
             //cout<<"it = "<<it<<endl;

@@ -41,7 +41,8 @@ int main(int argc, char* argv[]) {
     // comment out if you want another algorithm to run
 
     TwoOpt twoopt;
-
+    //Tabu2 tabu;
+    //vector<int> tour = tabu.tabuSolve();
     vector<int> tour = twoopt.twoOpt(rcities, currentTime);
     //vector<int> tour = nearestNeighbor(cities); 
 
