@@ -12,7 +12,7 @@ using namespace std;
 
 vector<int> opt2(Cities &cities, vector<int> tour){
     int size = tour.size();
-    //cout<<"size = "<<size<<endl;
+    cout<<"size = "<<size<<endl;
     for (int i = 0; i < size - 2; ++i){
         //cout<<"i = " << i<<endl;
         int a = tour[i];
@@ -58,16 +58,18 @@ vector<int> twoOpt(Cities &cities, clock_t start) {
     int bestDistance = cities.tourDist(tour);
     vector <int> bestTour = tour;
 
-    float timeLimit = 1.0;
+    float timeLimit = 1.9;
     float currentTime = float(clock() - start)/CLOCKS_PER_SEC;
 
-    //cout<<"här"<<endl;
+    cout<<"current time: "<<currentTime<<endl;
 
     if(tour.size() == 0){
         return tour;
     }
+    int iter = 0;
 
     while(currentTime < timeLimit){
+        ++iter;
         //cout<<"size = " << bestTour.size() <<endl;
         vector<int> new_tour = opt2(cities, bestTour);
         int dist = cities.tourDist(new_tour);
@@ -79,6 +81,7 @@ vector<int> twoOpt(Cities &cities, clock_t start) {
         }
         currentTime = float(clock() - start)/CLOCKS_PER_SEC;
     }
+    cout<<"iterations = "<<iter<<endl;
     return bestTour;
 }
 

@@ -22,7 +22,6 @@ int main(int argc, char* argv[]) {
     /* timer */
     clock_t start;
     start = clock();
-    float timeLimit = 0.9*2;
 
     istream* input = &cin; // input is stdin by default
     if(argc > 1){
@@ -32,7 +31,7 @@ int main(int argc, char* argv[]) {
     Cities cities(*input);
     Cities &rcities = cities;
     float currentTime = float(clock() - start)/CLOCKS_PER_SEC;
-    cout<<currentTime<<endl;
+    cout<<"Time after init: "<<currentTime<<endl;
     /* cities.findkNN(); */
 
     // use nearestNeighbor algorithm
