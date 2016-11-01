@@ -1,10 +1,22 @@
-#ifndef __twoOpt_H_INCLUDED__
-#define __twoOpt_H_INCLUDED__
+#ifndef __TwoOpt_H_INCLUDED__
+#define __TwoOpt_H_INCLUDED__
 using namespace std;
 #include "NearestNeighbor.h"
 #include "Cities.h"
+#include <tuple>
 using namespace std;
-tuple<int, vector<int>> opt2(Cities &cities, vector<int> tour);
-vector<int> swap(vector<int> tour, int i, int k );
-vector<int> twoOpt(Cities &cities, double time);
+
+class TwoOpt{
+
+    public:
+        TwoOpt();
+        tuple<int, vector<int>> opt2(Cities &cities, vector<int> tour);
+        vector<int> swap(vector<int> tour, int i, int k );
+        vector<int> twoOpt(Cities &cities, double time);
+
+    private:
+
+        int it;
+
+};
 #endif

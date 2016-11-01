@@ -8,7 +8,7 @@
 /* Algorithms */
 #include "NearestNeighbor.h"
 #include "Cities.h"
-#include "twoOpt.h"
+#include "TwoOpt.h"
 /* #include "Tabu2.h" */
 
 /* To run: ./a.out < "./samples/tsp.in" */
@@ -40,8 +40,10 @@ int main(int argc, char* argv[]) {
     // use nearestNeighbor algorithm
     // comment out if you want another algorithm to run
 
-    vector<int> tour = twoOpt(rcities, currentTime);
-    /* vector<int> tour = nearestNeighbor(cities); */
+    TwoOpt twoopt;
+
+    vector<int> tour = twoopt.twoOpt(rcities, currentTime);
+    //vector<int> tour = nearestNeighbor(cities); 
 
 
      /* outputs the tour to Kattis */
