@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <limits>
+#include <tuple>
 #include <stdlib.h> // srand
 //#include <time.h> // timer
 #include <vector>
@@ -11,7 +12,7 @@
 using namespace std;
 
 
-vector<int> opt2(Cities &cities, vector<int> tour){
+tuple<bool, vector<int>> opt2(Cities &cities, vector<int> tour){
     int size = tour.size();
     //cout<<"size = "<<size<<endl;
     for (int i = 0; i < size - 2; ++i){
@@ -41,12 +42,12 @@ vector<int> opt2(Cities &cities, vector<int> tour){
                 }*/
                 vector<int> newTour = swap(tour, i, k);
                 //cout<<"after swap = "<<cities.tourDist(newTour)<<endl;
-                return newTour;
+                return make_tuple(true, newTour);
             }
         }
     }
     //cout<<cities.tourDist(tour)<<endl;
-    return tour;
+    return make_tuple(false, tour);
 }
 
 
@@ -72,10 +73,10 @@ vector<int> twoOpt(Cities &cities, double time) {
 
     while(currentTime < timeLimit){
         ++iter;
-        vector<int> new_tour = opt2(cities, bestTour);
-        int dist = cities.tourDist(new_tour);
-
-        if (dist < bestDistance) {
+        auto new_tour_tuple = opt2(cities, bestTour);
+        if (get<0>(new_tour_tuple)) {
+            vector<int> new_tour = get<1>(new_tour_tuple);
+            int dist = cities.tourDist(new_tour);
             //cout<<"found better, "<<dist<<" - "<<bestDistance<<endl;
             bestTour = new_tour;
             bestDistance = dist;
