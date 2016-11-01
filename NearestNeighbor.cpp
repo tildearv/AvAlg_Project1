@@ -41,7 +41,7 @@ vector<int> nearestNeighbor(Cities &cities){
             }
         }
         //cout<<best_ind<<endl;
-        if(best_ind == -1){thisvertex = 0;}
+        if(best_ind == -1){best_ind = 0;}
         thisvertex = best_ind;
         tour.push_back(thisvertex);
         best = numeric_limits<float>::max();

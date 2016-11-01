@@ -39,6 +39,7 @@ vector<int> opt2(Cities &cities, vector<int> &tour){
             }
         }
     }
+    return tour;
 }
 
 
@@ -51,7 +52,7 @@ vector<int> twoOpt(Cities &cities, clock_t start) {
     int bestDistance = cities.tourDist(tour);
     vector<int> bestTour = tour;
 
-    float timeLimit = 0.01;
+    float timeLimit = 1.6;
     float currentTime = float(clock() - start)/CLOCKS_PER_SEC;
 
     //cout<<"här"<<endl;
@@ -85,7 +86,7 @@ vector<int> swap(vector<int>& tour, int i, int k ){
     /*cout << "i = "<<i<<endl;
     cout<<tour[i]<<endl;
     cout<<"k = "<<k<<endl;
-    cout<<tour[k]<<endl;
-    //swap(tour[i], tour[k]);*/
+    cout<<tour[k]<<endl;*/
+    //swap(tour[i], tour[k]);
     return tour;
 }
