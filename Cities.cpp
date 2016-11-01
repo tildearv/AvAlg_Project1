@@ -41,7 +41,7 @@ Cities::Cities(istream& reader){
     this->numCities = stoi(line); // str to int
     this->distances = vector< vector<int> > (this->numCities, vector<int>(this->numCities));
 
-    if (this->numCities > 20){
+    /*if (this->numCities > 20){
         this->kNN = vector< vector<int> >\
                     (this->numCities, vector<int>(20));
     } else {
@@ -49,7 +49,7 @@ Cities::Cities(istream& reader){
                     (this->numCities, vector<int>(this->numCities));
     }
 
-
+    */
     for(int i = 0; i < this->numCities; i++){
         getline(reader, line); // x, y coordinates
         int index = line.find(" ", 0); // split on space

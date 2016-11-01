@@ -31,6 +31,8 @@ int main(int argc, char* argv[]) {
 
     Cities cities(*input);
     Cities &rcities = cities;
+    float currentTime = float(clock() - start)/CLOCKS_PER_SEC;
+    cout<<currentTime<<endl;
     /* cities.findkNN(); */
 
     // use nearestNeighbor algorithm
@@ -44,6 +46,7 @@ int main(int argc, char* argv[]) {
     for(int i=0; i<tour.size(); ++i){
         cout << tour[i] << endl;
     }
+    cout<<"distance = " << cities.tourDist(tour)<<endl;
 
     return 0;
 }
