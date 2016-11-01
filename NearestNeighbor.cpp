@@ -12,7 +12,7 @@ using namespace std;
 /* Tour  construction heuristic.  Input  is an  array  of all  cities */
 /* outputs a tour.                                                    */
 
-vector<int> nearestNeighbor(Cities cities){
+vector<int> nearestNeighbor(Cities &cities){
 
     vector<int> tour;
 

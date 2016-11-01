@@ -2,5 +2,5 @@
 #define __nearestNeighbor_H_INCLUDED__
 #include "Cities.h"
 using namespace std;
-vector<int> nearestNeighbor(Cities cities);
+vector<int> nearestNeighbor(Cities &cities);
 #endif
