@@ -10,11 +10,14 @@
 using namespace std;
 
 
-void opt2(Cities &cities, vector<int> &tour){
-    for (int i = 0; i < tour.size()-2; i++){
+vector<int> opt2(Cities &cities, vector<int> &tour){
+    int size = tour.size();
+    for (int i = 0; i < size - 2; ++i){
+        //cout<<"i = " << i<<endl;
         int a = tour[i];
         int b = tour[i+1];
-        for (int k = 0; k < tour.size()-2; k++){
+        for (int k = 0; k < size-2; ++k){
+            //cout<<"k = " << k<<endl;
             if (k == i || k == i+1){
                 continue;
             }
@@ -24,14 +27,13 @@ void opt2(Cities &cities, vector<int> &tour){
 
             /* cout << i << i+1 << k << k+1 << endl; */
 
-            if(cities.ds(a, c) + cities.ds(b, d) <\
-                    cities.ds(a, b) + cities.ds(c, d)){
-                if (k<i){
-                    swap(tour, k, i);
-                    return;
+            if(cities.ds(a, c) + cities.ds(b, d) < cities.ds(a, b) + cities.ds(c, d)){
+                if (k < i){
+                    return swap(tour, k, i);
+                    
                 }
-                swap(tour, i, k);
-                return;
+                return swap(tour, i, k);
+                
             }
         }
     }
@@ -41,7 +43,6 @@ void opt2(Cities &cities, vector<int> &tour){
 
 vector<int> twoOpt(Cities &cities, clock_t start) {
     /* used for random */
-    srand (time(NULL));
     vector<int> tour = nearestNeighbor(cities);
 
     int bestDistance = cities.tourDist(tour);
@@ -50,8 +51,15 @@ vector<int> twoOpt(Cities &cities, clock_t start) {
     float timeLimit = 1.6;
     float currentTime = float(clock() - start)/CLOCKS_PER_SEC;
 
+    cout<<"här"<<endl;
+
+    if(tour.size() == 0){
+        return tour;
+    }
+
     while(currentTime < timeLimit){
-        opt2(cities, tour);
+        //cout<<"size = " << bestTour.size() <<endl;
+        tour = opt2(cities, tour);
         int dist = cities.tourDist(tour);
 
         if (dist < bestDistance) {
@@ -63,11 +71,16 @@ vector<int> twoOpt(Cities &cities, clock_t start) {
     return bestTour;
 }
 
-void swap(vector<int>& tour, int i, int k ){
+vector<int> swap(vector<int>& tour, int i, int k ){
     /* From Wikipedia:
        1. take route[1] to route[i-1] and add in order to new_route
        2. take route[i] to route[k] and add in reverse to new_route
        3. take route[k+1] to end and add in order to new_route
     */
     reverse(tour.begin() + i, tour.begin() + k+1);
+    //vector<int> newTour = tour;
+    cout << "i = "<<i<<endl;
+    cout<<"k = "<<k<<endl;
+    //swap(tour[i], tour[k]);
+    return tour;
 }
