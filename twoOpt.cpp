@@ -29,22 +29,22 @@ vector<int> opt2(Cities &cities, vector<int> tour){
             //cout << i << i+1 << k << k+1 << endl; 
 
             if( (cities.ds(a, c) + cities.ds(b, d)) < (cities.ds(a, b) + cities.ds(c, d)) ){
-                cout<<"old tour dist; "<< cities.tourDist(tour)<<endl;
-                cout << a << b << c << d << endl;
+                //cout<<"old tour dist; "<< cities.tourDist(tour)<<endl;
+                //cout << a << b << c << d << endl;
                 //cout<< "new"<<cities.ds(a, c) + cities.ds(b, d)<<endl;
                 //cout<< "before"<<cities.ds(a, b) + cities.ds(c, d)<<endl;
                 if (k < i){
                     vector<int> newTour = swap(tour, k, i);
-                    cout<<"after swap = "<<cities.tourDist(newTour)<<endl;
+                    //cout<<"after swap = "<<cities.tourDist(newTour)<<endl;
                     return newTour;
                 }
                 vector<int> newTour = swap(tour, i, k);
-                cout<<"after swap = "<<cities.tourDist(newTour)<<endl;
+                //cout<<"after swap = "<<cities.tourDist(newTour)<<endl;
                 return newTour;
             }
         }
     }
-    cout<<cities.tourDist(tour)<<endl;
+    //cout<<cities.tourDist(tour)<<endl;
     return tour;
 }
 
@@ -58,7 +58,7 @@ vector<int> twoOpt(Cities &cities, clock_t start) {
     int bestDistance = cities.tourDist(tour);
     vector <int> bestTour = tour;
 
-    float timeLimit = 0.001;
+    float timeLimit = 1.8;
     float currentTime = float(clock() - start)/CLOCKS_PER_SEC;
 
     //cout<<"här"<<endl;
@@ -73,7 +73,7 @@ vector<int> twoOpt(Cities &cities, clock_t start) {
         int dist = cities.tourDist(new_tour);
 
         if (dist < bestDistance) {
-            cout<<"found better, "<<dist<<" - "<<bestDistance<<endl;
+           // cout<<"found better, "<<dist<<" - "<<bestDistance<<endl;
             bestTour = new_tour;
             bestDistance = dist;
         }
@@ -88,11 +88,18 @@ vector<int> swap(vector<int> tour, int i, int k ){
        2. take route[i] to route[k] and add in reverse to new_route
        3. take route[k+1] to end and add in order to new_route
     */
-    //reverse(tour.begin() + i, tour.begin() + k+1);
-    //vector<int> newTour = tour;
-    cout << "i = "<<i<<endl;
-    //cout<<tour[i]<<endl;
+    //cout<<"i = "<<i<<endl;
     //cout<<"k = "<<k<<endl;
+    /*for(int i=0; i<tour.size(); ++i){
+        cout <<tour[i];
+    }
+    cout<<endl;*/
+    reverse(tour.begin() + i+1, tour.begin() + k+1);
+    //vector<int> newTour = tour;
+   /* for(int i=0; i<tour.size(); ++i){
+        cout <<tour[i];
+    }
+    cout<<endl;*/
     //cout<<tour[k]<<endl;
     //swap(tour[i+1], tour[k]);
     return tour;
