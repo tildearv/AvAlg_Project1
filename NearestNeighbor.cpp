@@ -19,6 +19,7 @@ vector<int> nearestNeighbor(Cities &cities){
     // take some random vertex
     srand (time(NULL));
     int thisvertex = rand() % cities.getNumCities();
+    //cout<<thisvertex<<endl;
 
     // put in the first city and delete it from cities
     tour.push_back(thisvertex);
@@ -39,6 +40,8 @@ vector<int> nearestNeighbor(Cities &cities){
                 }
             }
         }
+        //cout<<best_ind<<endl;
+        if(best_ind == -1){thisvertex = 0;}
         thisvertex = best_ind;
         tour.push_back(thisvertex);
         best = numeric_limits<float>::max();

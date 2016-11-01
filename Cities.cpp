@@ -92,6 +92,8 @@ int Cities::tourDist(vector<int> &tour){
 
 /* return distance between city i and city j */
 int Cities::ds(int i, int j){
+    //cout<<" i = "<<i<<"j = "<<j<<endl;
+    //cout<<"distance "<<distances[i][j]<<endl;
     return this->distances[i][j];
 };
 
