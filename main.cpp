@@ -1,6 +1,7 @@
 #include <fstream> // istream I/O
 #include <iostream> // cout
 #include <vector>
+#include <algorithm>
 #include <time.h> // timer
 
 
@@ -35,14 +36,26 @@ int main(int argc, char* argv[]) {
     // use nearestNeighbor algorithm
     // comment out if you want another algorithm to run
 
-    vector<int> tour = twoOpt(rcities, start);
+    vector<int> myvector;
+    for (int i=1; i<10; ++i) myvector.push_back(i);
+    for(int i=0; i<myvector.size(); ++i){
+        cout <<"index "<<i<<" = "<< myvector[i] << endl;
+    }
+
+    reverse(myvector.begin()+1, myvector.end()+5);
+
+    for(int i=0; i<myvector.size(); ++i){
+        cout <<"index "<<i<<" = "<< myvector[i] << endl;
+    }
+
+    //vector<int> tour = twoOpt(rcities, start);
     /* vector<int> tour = nearestNeighbor(cities); */
 
 
      /* outputs the tour to Kattis */
-    for(int i=0; i<tour.size(); ++i){
-        cout << tour[i] << endl;
-    }
+    //for(int i=0; i<tour.size(); ++i){
+     //   cout << tour[i] << endl;
+    //}
 
     return 0;
 }
