@@ -52,7 +52,7 @@ vector<int> opt2(Cities &cities, vector<int> tour){
 
 vector<int> twoOpt(Cities &cities, clock_t start) {
     /* used for random */
-    srand (time(NULL));
+    //srand (time(NULL));
     vector<int> tour = nearestNeighbor(cities);
 
     int bestDistance = cities.tourDist(tour);
@@ -73,7 +73,7 @@ vector<int> twoOpt(Cities &cities, clock_t start) {
         int dist = cities.tourDist(new_tour);
 
         if (dist < bestDistance) {
-           // cout<<"found better, "<<dist<<" - "<<bestDistance<<endl;
+            //cout<<"found better, "<<dist<<" - "<<bestDistance<<endl;
             bestTour = new_tour;
             bestDistance = dist;
         }
