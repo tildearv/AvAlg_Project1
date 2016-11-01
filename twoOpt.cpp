@@ -15,13 +15,14 @@ void opt2(Cities &cities, vector<int> &tour){
         int a = tour[i];
         int b = tour[i+1];
         for (int k = 0; k < tour.size()-2; k++){
-            if (k == i){
+            if (k == i || k == i+1){
                 continue;
             }
 
             int c = tour[k];
             int d = tour[k+1];
 
+            /* cout << i << i+1 << k << k+1 << endl; */
 
             if(cities.ds(a, c) + cities.ds(b, d) <\
                     cities.ds(a, b) + cities.ds(c, d)){
