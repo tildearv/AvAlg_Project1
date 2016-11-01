@@ -26,11 +26,6 @@ float Cities::City::getX(){ return City::x;};
 float Cities::City::getY(){ return City::y;};
 float Cities::City::getVertexNum(){ return City::vertex;};
 
-
-
-
-
-
 Cities::Cities(istream& reader){
     /* clock_t start; */
     /* start = clock(); */
@@ -79,7 +74,7 @@ Cities::Cities(istream& reader){
 
 int Cities::tourDist(vector<int> &tour){
     int tourDist = 0;
-    for (int i = 0; i < tour.size()-1; i++){
+    for (int i = 0; i < tour.size()-1; ++i){
         tourDist += this->distances[tour[i]][tour[i+1]];
     }
     tourDist += this->distances[tour[tour.size()-1]][tour[0]];

@@ -15,15 +15,12 @@ using namespace std;
 tuple<int, vector<int>> opt2(Cities &cities, vector<int> tour){
     int size = tour.size();
     //cout<<"size = "<<size<<endl;
-    for (int i = 0; i < size - 2; ++i){
+    for (int i = 0; i < size - 3; ++i){
         //cout<<"i = " << i<<endl;
         int a = tour[i];
         int b = tour[i+1];
         for (int k = i+2; k < size-1; ++k){
             //cout<<"k = " << k<<endl;
-            /*if (k == i || k == i+1){
-                continue;
-            }*/
 
             int c = tour[k];
             int d = tour[k+1];
