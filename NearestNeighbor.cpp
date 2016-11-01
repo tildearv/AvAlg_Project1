@@ -14,13 +14,13 @@ using namespace std;
 
 vector<int> nearestNeighbor(Cities &cities){
 
-    clock_t begin = clock();
+    //clock_t begin = clock();
 
     vector<int> tour;
     int N = cities.getNumCities();
 
     // take some random vertex
-    srand (time(NULL));
+    //srand (time(NULL));
     int thisvertex = 0;//rand() % cities.getNumCities();
     //cout<<thisvertex<<endl;
 
@@ -43,7 +43,9 @@ vector<int> nearestNeighbor(Cities &cities){
     double best = numeric_limits<double>::max();
     //int best_ind = -1;
 
-    while( tour.size() < N ){
+    int i = 1;
+
+    while( i < N ){
         int best_ind = -1;
         for(int j=0; j < N; ++j){
             // calc distance between thisvertex and j
@@ -55,14 +57,15 @@ vector<int> nearestNeighbor(Cities &cities){
                 }
             }
         }
+        ++i;
         //cout<<best_ind<<endl;
         //if(best_ind == -1){best_ind = 0;}
         thisvertex = best_ind;
         tour.push_back(thisvertex);
         best = numeric_limits<double>::max();
     }
-    clock_t end = clock();
-    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    //clock_t end = clock();
+    //double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
     //cout<<"time after NN = "<<elapsed_secs<<endl;
     return tour;
 }

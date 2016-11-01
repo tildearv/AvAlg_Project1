@@ -12,7 +12,7 @@
 using namespace std;
 
 
-tuple<bool, vector<int>> opt2(Cities &cities, vector<int> tour){
+tuple<int, vector<int>> opt2(Cities &cities, vector<int> tour){
     int size = tour.size();
     //cout<<"size = "<<size<<endl;
     for (int i = 0; i < size - 2; ++i){
@@ -28,26 +28,29 @@ tuple<bool, vector<int>> opt2(Cities &cities, vector<int> tour){
             int c = tour[k];
             int d = tour[k+1];
 
-            //cout << i << i+1 << k << k+1 << endl; 
+            //cout << i << i+1 << k << k+1 << endl;
 
-            if( (cities.ds(a, c) + cities.ds(b, d)) < (cities.ds(a, b) + cities.ds(c, d)) ){
+            int old_dist = cities.ds(a, b) + cities.ds(c, d);
+            int new_dist = cities.ds(a, c) + cities.ds(b, d);
+
+            if( new_dist < old_dist ){
                 //cout<<"old tour dist; "<< cities.tourDist(tour)<<endl;
                 //cout << a << b << c << d << endl;
                 //cout<< "new"<<cities.ds(a, c) + cities.ds(b, d)<<endl;
                 //cout<< "before"<<cities.ds(a, b) + cities.ds(c, d)<<endl;
                 /*if (k < i){
                     vector<int> newTour = swap(tour, k, i);
-                    //cout<<"after swap = "<<cities.tourDist(newTour)<<endl;
+                    cout<<"after swap = "<<cities.tourDist(newTour)<<endl;
                     return newTour;
                 }*/
                 vector<int> newTour = swap(tour, i, k);
                 //cout<<"after swap = "<<cities.tourDist(newTour)<<endl;
-                return make_tuple(true, newTour);
+                return make_tuple((old_dist - new_dist), newTour);
             }
         }
     }
     //cout<<cities.tourDist(tour)<<endl;
-    return make_tuple(false, tour);
+    return make_tuple(0, tour);
 }
 
 
@@ -69,17 +72,17 @@ vector<int> twoOpt(Cities &cities, double time) {
     if(tour.size() == 0){
         return tour;
     }
-    int iter = 0;
+    //int iter = 0;
 
     while(currentTime < timeLimit){
-        ++iter;
+        //++iter;
         auto new_tour_tuple = opt2(cities, bestTour);
-        if (get<0>(new_tour_tuple)) {
+        if (get<0>(new_tour_tuple) != 0) {
             vector<int> new_tour = get<1>(new_tour_tuple);
-            int dist = cities.tourDist(new_tour);
+            //int dist = best;
             //cout<<"found better, "<<dist<<" - "<<bestDistance<<endl;
             bestTour = new_tour;
-            bestDistance = dist;
+            bestDistance -= get<0>(new_tour_tuple);
         }
         end = clock();
         currentTime = double(end - start)/CLOCKS_PER_SEC;
