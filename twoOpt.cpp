@@ -12,16 +12,16 @@ using namespace std;
 
 vector<int> opt2(Cities &cities, vector<int> tour){
     int size = tour.size();
-    cout<<"size = "<<size<<endl;
+    //cout<<"size = "<<size<<endl;
     for (int i = 0; i < size - 2; ++i){
         //cout<<"i = " << i<<endl;
         int a = tour[i];
         int b = tour[i+1];
-        for (int k = 0; k < size-2; ++k){
+        for (int k = i+2; k < size-1; ++k){
             //cout<<"k = " << k<<endl;
-            if (k == i || k == i+1){
+            /*if (k == i || k == i+1){
                 continue;
-            }
+            }*/
 
             int c = tour[k];
             int d = tour[k+1];
@@ -33,11 +33,11 @@ vector<int> opt2(Cities &cities, vector<int> tour){
                 //cout << a << b << c << d << endl;
                 //cout<< "new"<<cities.ds(a, c) + cities.ds(b, d)<<endl;
                 //cout<< "before"<<cities.ds(a, b) + cities.ds(c, d)<<endl;
-                if (k < i){
+                /*if (k < i){
                     vector<int> newTour = swap(tour, k, i);
                     //cout<<"after swap = "<<cities.tourDist(newTour)<<endl;
                     return newTour;
-                }
+                }*/
                 vector<int> newTour = swap(tour, i, k);
                 //cout<<"after swap = "<<cities.tourDist(newTour)<<endl;
                 return newTour;
@@ -50,18 +50,20 @@ vector<int> opt2(Cities &cities, vector<int> tour){
 
 
 
-vector<int> twoOpt(Cities &cities, clock_t start) {
+vector<int> twoOpt(Cities &cities, float time) {
+
+    clock_t start;
+    start = clock();
     /* used for random */
     //srand (time(NULL));
+    float currentTime = time;
     vector<int> tour = nearestNeighbor(cities);
 
     int bestDistance = cities.tourDist(tour);
     vector <int> bestTour = tour;
 
-    float timeLimit = 1.9;
-    float currentTime = float(clock() - start)/CLOCKS_PER_SEC;
-
-    cout<<"current time: "<<currentTime<<endl;
+    float timeLimit = 1.9 - time;
+    //float currentTime = float(clock() - start)/CLOCKS_PER_SEC;
 
     if(tour.size() == 0){
         return tour;
@@ -70,7 +72,6 @@ vector<int> twoOpt(Cities &cities, clock_t start) {
 
     while(currentTime < timeLimit){
         ++iter;
-        //cout<<"size = " << bestTour.size() <<endl;
         vector<int> new_tour = opt2(cities, bestTour);
         int dist = cities.tourDist(new_tour);
 
@@ -81,7 +82,8 @@ vector<int> twoOpt(Cities &cities, clock_t start) {
         }
         currentTime = float(clock() - start)/CLOCKS_PER_SEC;
     }
-    cout<<"iterations = "<<iter<<endl;
+    //cout<<"iterations = "<<iter<<endl;
+    //cout<<"time: "<<currentTime<<endl;
     return bestTour;
 }
 

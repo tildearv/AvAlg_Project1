@@ -31,13 +31,13 @@ int main(int argc, char* argv[]) {
     Cities cities(*input);
     Cities &rcities = cities;
     float currentTime = float(clock() - start)/CLOCKS_PER_SEC;
-    cout<<"Time after init: "<<currentTime<<endl;
+    //cout<<"Time after init: "<<currentTime<<endl;
     /* cities.findkNN(); */
 
     // use nearestNeighbor algorithm
     // comment out if you want another algorithm to run
 
-    vector<int> tour = twoOpt(rcities, start);
+    vector<int> tour = twoOpt(rcities, currentTime);
     /* vector<int> tour = nearestNeighbor(cities); */
 
 
@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
     for(int i=0; i<tour.size(); ++i){
         cout << tour[i] << endl;
     }
-    cout<<"distance = " << cities.tourDist(tour)<<endl;
+    //cout<<"distance = " << cities.tourDist(tour)<<endl;
 
     return 0;
 }
