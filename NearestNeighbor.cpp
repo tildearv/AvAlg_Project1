@@ -40,7 +40,7 @@ vector<int> nearestNeighbor(Cities &cities){
 
 
     // some variables to keep track of best
-    double best = numeric_limits<double>::max();
+    int best = numeric_limits<int>::max();
     //int best_ind = -1;
 
     int i = 1;
@@ -62,7 +62,7 @@ vector<int> nearestNeighbor(Cities &cities){
         //if(best_ind == -1){best_ind = 0;}
         thisvertex = best_ind;
         tour.push_back(thisvertex);
-        best = numeric_limits<double>::max();
+        best = numeric_limits<int>::max();
     }
     //clock_t end = clock();
     //double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
