@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <fstream> // istream I/O
 #include <math.h> // pow, sqrt etc
 #include <iostream> // cout
@@ -133,15 +134,14 @@ void Cities::findkNN(){
 
                 /* if we have not found maxNeighbors, just put in cities */
 
-                if(neighbor < maxNN){
+                if(neighbor < this->maxNN){
                     Ncity nb = Cities::Ncity(b.getVertexNum(), thisdist);
                     tempList.push_back(nb);
 
                     /* keep track of the city with biggest distance */
                     if (thisdist > largest ){
 
-                        auto max = max_element(begin(tempList),\
-                                end(tempList));
+                        auto max = max_element(begin(tempList), end(tempList));
 
                         swap = distance(begin(tempList), max);
                         largest = max->dist;
@@ -164,12 +164,16 @@ void Cities::findkNN(){
                 }
             }
         }
+
         sort(tempList.begin(), tempList.end());
         this->kNN.push_back(tempList);
-        cout << "--------" << endl;
-        for (int m = 0; m<maxNN; m++){
-            cout << tempList[m].vertex << endl;
-        }
-        cout << "--------" << endl;
+
+        /* cout << "--------" << endl; */
+        /* for (int m = 0; m < this->maxNN; m++){ */
+        /*     cout << tempList[m].vertex << endl; */
+        /* } */
+        /* cout << "--------" << endl; */
+
+
     }
 };

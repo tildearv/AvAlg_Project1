@@ -33,10 +33,10 @@ class Cities{
         void findkNN();
         vector< vector<Cities::Ncity> > kNN;
         static int dist(City i, City j);
+        int maxNN;
     private:
         vector<Cities::City> listCities;
         vector< vector<int> > distances;
         int numCities;
-        int maxNN;
 };
 #endif
