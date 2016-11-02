@@ -9,6 +9,14 @@
 
 using namespace std;
 
+Cities::Ncity::Ncity(int vertex, int dist) {
+    this->dist = dist;
+    this->vertex = vertex;
+};
+
+bool Cities::Ncity::operator<(const Ncity &nc2) const {
+    return this->dist < nc2.dist;
+}
 
 Cities::City::City(int vertex, float x, float y){
     this->vertex = vertex;
@@ -16,15 +24,23 @@ Cities::City::City(int vertex, float x, float y){
     this-> y = y;
 };
 
+float Cities::City::getX(){ return City::x;};
+float Cities::City::getY(){ return City::y;};
+float Cities::City::getVertexNum(){ return City::vertex;};
+
+
+
+int Cities::getNumCities(){return this->numCities;};
 int Cities::dist(City i, City j){
     float xdist = i.getX() - j.getX();
     float ydist = i.getY() - j.getY();
     return  nearbyint(sqrt(xdist*xdist + ydist*ydist));
 };
 
-float Cities::City::getX(){ return City::x;};
-float Cities::City::getY(){ return City::y;};
-float Cities::City::getVertexNum(){ return City::vertex;};
+bool comp(const Cities::City &c0, const Cities::City &c1,\
+        const Cities::City &c2){
+    return Cities::dist(c0, c1) < Cities::dist(c0, c2);
+}
 
 Cities::Cities(istream& reader){
     /* clock_t start; */
@@ -34,17 +50,17 @@ Cities::Cities(istream& reader){
     getline(reader, line); // first line is the num of cities
 
     this->numCities = stoi(line); // str to int
-    this->distances = vector< vector<int> > (this->numCities, vector<int>(this->numCities));
 
-    /*if (this->numCities > 20){
-        this->kNN = vector< vector<int> >\
-                    (this->numCities, vector<int>(20));
+    this->distances = vector< vector<int> > (this->numCities,\
+            vector<int>(this->numCities));
+
+    if (this->numCities > 20) {
+        this->maxNN = 20;
     } else {
-        this->kNN = vector< vector<int> >\
-                    (this->numCities, vector<int>(this->numCities));
+        this->maxNN = this->numCities-1;
     }
 
-    */
+
     for(int i = 0; i < this->numCities; i++){
         getline(reader, line); // x, y coordinates
         int index = line.find(" ", 0); // split on space
@@ -57,6 +73,7 @@ Cities::Cities(istream& reader){
         // cities are ordered by appearence
         this->listCities.push_back(Cities::City(i,x,y));
     }
+
     /* cout << float(clock() - start)/CLOCKS_PER_SEC << endl; */
 
     for(int i = 0; i < this->numCities; i++){
@@ -81,70 +98,78 @@ int Cities::tourDist(vector<int> &tour){
     return tourDist;
 };
 
+
 /* return distance between city i and city j */
 int Cities::ds(int i, int j){
-    //cout<<" i = "<<i<<"j = "<<j<<endl;
-    //cout<<"distance "<<distances[i][j]<<endl;
     return this->distances[i][j];
 };
 
-int Cities::getNumCities(){return this->numCities;};
-
-int Cities::getNNSize(){return this->kNN[0].size();};
 
 void Cities::findkNN(){
     /*  This solution assumes cities is ordered so that cities[k] has */
     /* vertexnum k.                                                   */
 
-    int maxNeighbors = this->kNN[0].size();
-
-    /* Parameters for  finding the  city with largest  distance. */
-    int largest = -1;
-    int swap = -1; // swap index of the city with largest dist
 
     /* loop through every city */
     for (int i = 0; i < this->numCities; i++){
-        int neighbors = 0;
 
-        /* for every city, save the mth neighbor */
+        /* Parameters for  finding the  city with largest  distance. */
+        int largest = -1;
+        int swap = -1; // swap index of the city with largest dist
+
+        int neighbor = 0;
+        vector<Ncity> tempList;
+
+        /* for every city, save the kth neighbor */
         for (int j = 0; j < this->numCities; j++){
 
             /* skip if we look at the same city */
-            if ( j == i){
+            if (j == i){
                 continue;
-            }
+            } else {
 
-            int thisdist = this->distances[i][j];
+                int thisdist = this->distances[i][j];
+                City b = this->listCities[j];
 
-            /* if we have not found nnMax neighbors, just put cities */
-            if( neighbors < maxNeighbors){
-                this->kNN[i][neighbors] = j;
+                /* if we have not found maxNeighbors, just put in cities */
 
-                /* keep track of the city with biggest distance */
-                if (thisdist > largest ){
-                    largest = thisdist;
-                    swap = neighbors;
-                }
+                if(neighbor < maxNN){
+                    Ncity nb = Cities::Ncity(b.getVertexNum(), thisdist);
+                    tempList.push_back(nb);
 
-                neighbors++;
+                    /* keep track of the city with biggest distance */
+                    if (thisdist > largest ){
 
-            }else if (thisdist > largest){
-                /* maxNeighbors numbers of neighbors to city i */
-                /* swap is indx of city with biggest distance */
+                        auto max = max_element(begin(tempList),\
+                                end(tempList));
 
-                /* swap since city j is closer to city i */
-                this->kNN[i][swap] = j;
-                largest = -1;
-
-                /* find city with largest dist to city i */
-                for (int k = 0; k < maxNeighbors; k++){
-                    int thisdist = this->distances[i][k];
-                    if (thisdist > largest){
-                        largest = thisdist;
-                        swap = k;
+                        swap = distance(begin(tempList), max);
+                        largest = max->dist;
                     }
+
+                    neighbor++;
+
+                }else if (thisdist < largest){
+                    /* maxNeighbors numbers of neighbors to city i */
+                    /* swap is indx of city with biggest distance */
+                    Ncity nb = Cities::Ncity(b.getVertexNum(), thisdist);
+
+                    /* swap since city j is closer to city i */
+                    tempList[swap] = nb;
+
+                    /* find city with largest dist to city i */
+                    auto max = max_element(begin(tempList), end(tempList));
+                    swap = distance(begin(tempList), max);
+                    largest = max->dist;
                 }
             }
         }
+        sort(tempList.begin(), tempList.end());
+        this->kNN.push_back(tempList);
+        cout << "--------" << endl;
+        for (int m = 0; m<maxNN; m++){
+            cout << tempList[m].vertex << endl;
+        }
+        cout << "--------" << endl;
     }
 };

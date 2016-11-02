@@ -17,34 +17,39 @@ TwoOpt::TwoOpt(){
 
 tuple<int, vector<int>> TwoOpt::opt2(Cities &cities, vector<int> tour){
     const int size = tour.size();
+    bool improved = true;
+    //cout<<"size = "<<size<<endl;
+    while(improved){
+        improved = false;
+        for (int i = it; i < size - 3; ++i){
+            int a = tour[i];
+            int b = tour[i+1];
+            for (int k = i+2; k < size-1; ++k){
+                //cout<<"k = " << k<<endl;
 
-    for (int i = it; i < size - 3; ++i){
-        int a = tour[i];
-        int b = tour[i+1];
-        for (int k = i+2; k < size-1; ++k){
-            //cout<<"k = " << k<<endl;
+                int c = tour[k];
+                int d = tour[k+1];
 
-            int c = tour[k];
-            int d = tour[k+1];
+                int old_dist = cities.ds(a, b) + cities.ds(c, d);
+                int new_dist = cities.ds(a, c) + cities.ds(b, d);
 
-            int old_dist = cities.ds(a, b) + cities.ds(c, d);
-            int new_dist = cities.ds(a, c) + cities.ds(b, d);
-
-            if( new_dist < old_dist ){
-                //cout << i << " " << k <<endl;
-                //cout<<"old tour dist; "<< cities.tourDist(tour)<<endl;
-                //cout << a << b << c << d << endl;
-                //cout<< "new"<<cities.ds(a, c) + cities.ds(b, d)<<endl;
-                //cout<< "before"<<cities.ds(a, b) + cities.ds(c, d)<<endl;
-                it = i;
-                vector<int> newTour = swap(tour, i, k);
-                //cout<<"after swap = "<<cities.tourDist(newTour)<<endl;
-                return make_tuple((old_dist - new_dist), newTour);
+                if( new_dist < old_dist ){
+                    //cout << i << " " << k <<endl;
+                    //cout<<"old tour dist; "<< cities.tourDist(tour)<<endl;
+                    //cout << a << b << c << d << endl;
+                    //cout<< "new"<<cities.ds(a, c) + cities.ds(b, d)<<endl;
+                    //cout<< "before"<<cities.ds(a, b) + cities.ds(c, d)<<endl;
+                    //it = i;
+                    improved = true;
+                    vector<int> newTour = swap(tour, i, k);
+                    //cout<<"after swap = "<<cities.tourDist(newTour)<<endl;
+                    return make_tuple((old_dist - new_dist), newTour);
+                }
             }
         }
     }
     //cout<<cities.tourDist(tour)<<endl;
-    it = 0;
+    //it = 0;
     return make_tuple(0, tour);
 };
 

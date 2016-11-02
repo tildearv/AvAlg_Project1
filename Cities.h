@@ -17,17 +17,26 @@ class Cities{
                 float getVertexNum();
                 static float distsq(City i, City j);
         };
+        class Ncity {
+            public:
+                /* dist to neighb city */
+                int dist;
+                int vertex;
+                Ncity(int vertex, int dist);
+                bool operator<(const Ncity &nc2) const;
+        };
         Cities(istream& reader);
         int ds(int i, int j);
         int tourDist(vector<int> &tour);
         int getNumCities();
         int getNNSize();
         void findkNN();
-        vector< vector<int> > kNN;
-    private:
+        vector< vector<Cities::Ncity> > kNN;
         static int dist(City i, City j);
+    private:
         vector<Cities::City> listCities;
         vector< vector<int> > distances;
         int numCities;
+        int maxNN;
 };
 #endif

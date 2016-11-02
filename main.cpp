@@ -29,13 +29,12 @@ int main(int argc, char* argv[]) {
 
     Cities cities(*input);
     Cities &rcities = cities;
+    cities.findkNN();
     clock_t end = clock();
 
     double currentTime = double(end - start) / CLOCKS_PER_SEC;
 
-    //float currentTime = float(clock() - start)/CLOCKS_PER_SEC;
-    //cout<<"Time after init: "<<currentTime<<endl;
-    /* cities.findkNN(); */
+    cout << "cities clear " << currentTime << endl;
 
     // use nearestNeighbor algorithm
     // comment out if you want another algorithm to run
@@ -49,7 +48,7 @@ int main(int argc, char* argv[]) {
 
      /* outputs the tour to Kattis */
     for(int i=0; i<tour.size(); ++i){
-        cout << tour[i] << endl;
+        /* cout << tour[i] << endl; */
     }
     //cout<<"distance = " << cities.tourDist(tour)<<endl;
 

@@ -17,9 +17,6 @@ class TwoOpt{
     private:
 
         int it;
-        double currentTime;
-        double timeLimit;
-        clock_t start;
 
 };
 #endif
